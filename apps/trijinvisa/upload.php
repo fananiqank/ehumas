@@ -6,11 +6,11 @@ $db=new kelas();
 
 $date = date("Y-m-d H:i:s");
 $date2 = date("Y-m-d_H-i-s");
-echo $_POST[idx];
-die();
 
 if(isset($_FILES['file']['name'])){
-	foreach($db->select("uploaddata","upload_name","upload_id = $_GET[id]") as $cekpict){}
+	foreach($db->select("uploaddata","upload_name","upload_id = '$_POST[idx]'") as $cekpict){}
+	$cekupload = $db->selectcount("uploaddata","upload_name","upload_id = '$_POST[idx]'");
+   
    //data lama
 	$datalama = '../../data/'.$cekpict[upload_name]; 
    // file name
@@ -27,30 +27,33 @@ if(isset($_FILES['file']['name'])){
    // Valid extensions
    $valid_ext = array("pdf","doc","docx","jpg","png","jpeg");
    
-   if (file_exists($datalama)) {
+   	if (file_exists($datalama)) {
 		unlink($datalama);
 	}
-	
 
    $response = 0;
    if(in_array($file_extension,$valid_ext) === true){
 	   	if ($ukuran < 2044070) {
 	   		// Upload file
 	   		if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
-	   			if(count($cekpict[upload_id] > 0)){
+	   			//echo count($cekpict[upload_id]);
+	   			if($cekupload > 0){
 	   				$data = array(
 						'upload_name' => $filesname,
 						'upload_date' => $date,
 						);
-						$exec = $db->update("uploaddata", $data, "upload_id = '$_GET[id]'");
+	   				
+						$exec = $db->update("uploaddata", $data, "upload_id = '$_POST[idx]'");
 						$response = 1;
 	   			} else {
 	   				$data = array(
-						'ijin_id' => 1,
-						'berkas_id' => 1,
+						'berkas_id' => $_POST['berkas_id'],
 						'upload_name' => $filesname,
 						'upload_date' => $date,
+						'upload_status' => 0,
+						'id_pegawai' => $_SESSION['ID_PEG']
 						);
+	   				
 						$exec = $db->insert("uploaddata", $data);
 						$response = 1;
 	   			}
