@@ -33,7 +33,7 @@ $(document).ready(function(){
                     function(msg) {
                         if(msg=="1"){alert("Data Tersimpan");}
                         else{alert("Gagal Tersimpan!!")}
-                        location.reload();
+                        //location.reload();
                         // location.reload();
                        // swal({
                        //       title: "Konfirmasi!",

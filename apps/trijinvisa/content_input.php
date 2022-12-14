@@ -6,6 +6,7 @@
     </div>
     <h2 class="card-title">Input Bisnis Visa</h2>
     <p class="card-subtitle">
+        <a href="index.php?x=trijinvisa" style="float:right;" class="btn btn-info btn-sm">Back to List</a>
     </p>
 </header>
 <div class="card-body">
@@ -64,27 +65,22 @@
         <div class="form-group row">
             <label class="col-sm-3 control-label" for="w1-username">Alasan Kebutuhan</label>
             <div class="col-sm-9">
-                <textarea id="bvisa_keterangan" name="bvisa_keterangan" style="width: 100%" value="<?=$mtc[bvisa_keterangan]?>" required></textarea>    
+                <textarea id="bvisa_alasan" name="bvisa_alasan" style="width: 100%" value="<?=$mtc[bvisa_alasan]?>" required></textarea>    
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-3 control-label" for="w1-username">Alamat kantor kedutaan RI</label>
             <div class="col-sm-9">
-                <textarea id="bvisa_alamatkantor" name="bvisa_alamatkantor" style="width: 100%" value="<?=$mtc[bvisa_alamatkantor]?>" required></textarea>    
+                <textarea id="bvisa_alamat" name="bvisa_alamat" style="width: 100%" value="<?=$mtc[bvisa_alamat]?>" required></textarea>    
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-3 control-label" for="w1-username">No. Cost Center</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control input-sm headmas" name="bvisa_biaya" id="bvisa_biaya" style="min-width: 100%;" required>
+                <input type="text" class="form-control input-sm headmas" name="ijin_costcenter" id="ijin_costcenter" style="min-width: 100%;" required>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-3 control-label" for="w1-username">Diminta Oleh</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control input-sm headmas" name="bvisa_biaya" id="bvisa_biaya" style="min-width: 100%;" required>
-            </div>
-        </div>
+       
     </div>
     <div class="col-md-6">
         
@@ -98,9 +94,9 @@
                  <div id='ck' >
                     <!-- <a class="btn btn-primary" role="button" tabindex="6" id="simpan"><i class="fa fa-save">  Simpan</i></a> -->
                     
-                        <a href="index.php?x=trijinvisa" class="btn btn-warning">Back</a>
+                        <a href="index.php?x=trijinvisa" class="btn btn-warning btn-sm">Back</a>
                     <?php if($_GET['id'] == ''){ ?>
-                        <button type="submit" class="btn btn-info" id="tambah">Simpan</button>
+                        <button type="submit" class="btn btn-info btn-sm" id="tambah">Simpan</button>
                     <?php } ?>                    
                 </div>
             

@@ -18,23 +18,28 @@ if($_GET[act]=='post'){
 		'dep_id' => $_POST['dep_id'],
 		'ijin_tglpengajuan' => $date,
 		'id_pegawai' => $_SESSION['ID_PEG'],
-		'ijin_jabatan' => $_POST['ijin_jabatan']
+		'ijin_jabatan' => $_POST['ijin_jabatan'],
+		'ijin_costcenter' => $_POST['ijin_costcenter'],
  	);
 	$last = $db->insertID("tx_perijinan",$data);
+
+	$data2 = array(
+ 		'ijin_id' => $last,
+		'bvisa_nopas' => $_POST['bvisa_nopas'],
+		'bvisa_jenis' => $_POST['bvisa_jenis'],
+		'bvisa_tglawal' => $_POST['bvisa_tglawal'],
+		'bvisa_tglakhir' => $_POST['bvisa_tglakhir'],
+		'bvisa_alasan' => $_SESSION['bvisa_alasan'],
+		'bvisa_alamat' => $_POST['bvisa_alamat'],
+ 	);
+	$last2 = $db->insertID("tx_bvisa",$data2);
+
 	$db->query("update uploaddata set
 				upload_status = 1,
 				ijin_id = $last
 			where id_pegawai = '$_SESSION[ID_PEG]' and upload_status = '0'
  			");
 	if($last){echo "1";}else{echo "0";}
-
-
-	// $db->query("
-	// 		update tx_mekanik set
-	// 			id_mtc = $idmtc,
-	// 			stinput='1'
-	// 		where stinput = 0 and userinput = '$_SESSION[ID_PEG]'
- 	// 		");
 
 
 } else if($_GET[act]=='del'){
