@@ -13,7 +13,7 @@ if($_GET[act]=='post'){
  	$nomasuk = 'VB' . sprintf('%05s', $nopart);
  	$data = array(
  		'ijin_name' => $_POST['ijin_name'],
-		'ijin_jenis' => $_POST['ijinjenis_id'],
+		'ijinjenis_id' => $_POST['ijinjenis_id'],
 		'ijin_nosk' => $nomasuk,
 		'dep_id' => $_POST['dep_id'],
 		'ijin_tglpengajuan' => $date,

@@ -18,7 +18,7 @@
     
     <div class="col-lg-12">
         <div class="table-responsive">
-            <table class="table table-striped table-bordered" id="trijinvisa">
+            <table class="table table-striped table-bordered server-side" id="trijinvisa">
                 <thead>
                     <tr>
                         <th>ID</th>

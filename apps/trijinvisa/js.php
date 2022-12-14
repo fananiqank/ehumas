@@ -1,25 +1,13 @@
 
 <script type="text/javascript">
-$('.server-side').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
-        "ajax": "apps/trijinvisa/datarit.php?idmtc="+$('#idmtc').val()
-    } );
 
-$('#trijinvisa').DataTable( {
+$('.server-side').DataTable( {
         "processing": true,
         "serverSide": true,
         //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
         "ajax": "apps/trijinvisa/data.php"
     } );
 
-$('.mekanikx').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
-        "ajax": "apps/trijinvisa/data2.php?idmtc="+$('#idmtc').val()
-    } );
 
 $(document).ready(function(){
     $('#form input,#form select, #form select2 , #form textarea').jqBootstrapValidation({
@@ -58,47 +46,6 @@ $(document).ready(function(){
     
 
     
-function tambahmekanik(){
-       
-    var formData = new FormData();
-    formData.append('mekanik', $('#mekanik').val());
-    formData.append('pekerjaan', $('#pekerjaan').val());
-    formData.append('biayamekanik', $('#biayamekanik').val());
-    
-    $('#prosesloading').html('<img src="../assets/images/loading.gif">');
-    $.ajax({
-      url:"apps/trijinvisa/prosesadd2.php?act=save&idmtc="+$('#idmtc').val(),
-      method:"POST",
-      data:formData,
-      contentType:false,
-      cache:false,
-      processData:false,
-      success:function(data)
-      {
-        $('#mekanik').val(null).trigger('change');
-        $('#pekerjaan').val('');
-        $('#biayamekanik').val('');
-        $('.mekanikx').DataTable().ajax.reload();
-        // alert(data);
-         // window.location='index.php?x=trijinvisa';
-        // $('#excel_area').html(data);
-        // $('table').css('width','100%');
-      }
-    })
-}
-
-function simpanall(){
-        var data = $('#form').serializeFormJSON();        
-            $('#prosesloading').html('<img src="../assets/images/loading.gif">');
-            $.post('apps/trijinvisa/proses.php?act=save',data,
-                function(msg) {
-                    if(msg!==""){alert(msg);}
-                   $('#prosesloading').html('');
-                   window.location='index.php?x=trijinvisa';
-                }
-            );
-}
-
 
 // $(document).ready(function(){
 //   $('#upload').on('click', function(event){

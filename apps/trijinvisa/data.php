@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 error_reporting(0);
 include "../../webclass.php";
@@ -24,10 +25,10 @@ $db=new kelas();
 
 // DB table to use
 
-$table = "m_armada";
+$table = "tx_perijinan";
 
 // Table's primary key
-$primaryKey = 'arm_id';
+$primaryKey = 'ijin_id';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
@@ -39,28 +40,28 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'arm_norangka','dt'   => 1, 'field' => 'arm_norangka',
+	array('db'      => 'ijin_nosk','dt'   => 1, 'field' => 'ijin_nosk',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'arm_nopol','dt'   => 2, 'field' => 'arm_nopol',
+	array('db'      => 'ijin_name','dt'   => 2, 'field' => 'ijin_name',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'arm_nolambung','dt'   => 3, 'field' => 'arm_nolambung',
+	array('db'      => 'jenis_visa','dt'   => 3, 'field' => 'jenis_visa',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'arm_id','dt'   => 4, 'field' => 'arm_id',
+	array('db'      => 'ijin_id','dt'   => 4, 'field' => 'ijin_id',
 		   'formatter' => function( $d, $row ) {
 			//return "<a href='javascript:void(0)' onclick=\"delCart('$d')\">Hapus</a>";
 			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">History</a>";
@@ -90,9 +91,9 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut, a.arm_id,a.arm_norangka,a.arm_nopol,a.arm_nolambung FROM m_armada a JOIN (SELECT @rownum:=0) r ) a
-			";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,ijin_nosk,ijin_name,bvisa_jenis,case when bvisa_jenis = 1 then '211a/211B Single-Entry' else 'Multiple-Entry (VKUBP)' end jenis_visa  from tx_perijinan a join tx_bvisa b on a.ijin_id=b.ijin_id JOIN (SELECT @rownum:=0) r where ijinjenis_id = 1) a";
 $extraWhere = "";        
+//echo $joinQuery;
 
 echo json_encode(
 	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $joinQuery, $extraWhere )
