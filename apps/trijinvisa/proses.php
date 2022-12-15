@@ -14,7 +14,7 @@ if($_GET[act]=='post'){
  	$data = array(
  		'ijin_name' => $_POST['ijin_name'],
 		'ijinjenis_id' => $_POST['ijinjenis_id'],
-		'ijin_nosk' => $nomasuk,
+		'ijin_kode' => $nomasuk,
 		'dep_id' => $_POST['dep_id'],
 		'ijin_tglpengajuan' => $date,
 		'id_pegawai' => $_SESSION['ID_PEG'],

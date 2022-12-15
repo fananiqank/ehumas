@@ -40,7 +40,7 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'ijin_nosk','dt'   => 1, 'field' => 'ijin_nosk',
+	array('db'      => 'ijin_kode','dt'   => 1, 'field' => 'ijin_kode',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
@@ -91,7 +91,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.ijin_id,ijin_nosk,ijin_name,bvisa_jenis,case when bvisa_jenis = 1 then '211a/211B Single-Entry' else 'Multiple-Entry (VKUBP)' end jenis_visa  from tx_perijinan a join tx_bvisa b on a.ijin_id=b.ijin_id JOIN (SELECT @rownum:=0) r where ijinjenis_id = 1) a";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.ijin_id,ijin_kode,ijin_name,bvisa_jenis,case when bvisa_jenis = 1 then '211a/211B Single-Entry' else 'Multiple-Entry (VKUBP)' end jenis_visa  from tx_perijinan a join tx_bvisa b on a.ijin_id=b.ijin_id JOIN (SELECT @rownum:=0) r where ijinjenis_id = 1) a";
 $extraWhere = "";        
 //echo $joinQuery;
 
