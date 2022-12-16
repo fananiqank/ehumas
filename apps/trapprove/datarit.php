@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 error_reporting(0);
 include "../../webclass.php";
@@ -24,63 +23,66 @@ $db=new kelas();
  */
 
 // DB table to use
+if($_GET['idmtc'] == ''){
+	$idmtc = "where status_mtcdtl = 0 and created_by='$_SESSION[ID_PEG]'";
+} else {
+	$idmtc = "where status_mtcdtl = 1 and a.id_mtc='$_GET[idmtc]'";
+}
 
-$table = "tx_perijinan";
+$table = "tx_maintenancedtl";
 
 // Table's primary key
-$primaryKey = 'ijin_id';
+$primaryKey = 'id_mtcdtl';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-	array('db'      => 'no_urut','dt'   => 0, 'field' => 'no_urut',
+	array('db'      => 'norut','dt'   => 0, 'field' => 'norut',
 		   'formatter' => function( $d, $row ) {
 			return"$d";
 			}
 		  ),
-	array('db'      => 'ijinjenis_name','dt'   => 1, 'field' => 'ijinjenis_name',
+	array('db'      => 'nama_barang','dt'   => 1, 'field' => 'nama_barang',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijin_kode','dt'   => 2, 'field' => 'ijin_kode',
+	array('db'      => 'qty_mtcdtl','dt'   => 2, 'field' => 'qty_mtcdtl',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijin_nosk','dt'   => 3, 'field' => 'ijin_nosk',
+	array('db'      => 'nama_satuan','dt'   => 3, 'field' => 'nama_satuan',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijin_name','dt'   => 4, 'field' => 'ijin_name',
+	array('db'      => 'jenis','dt'   => 4, 'field' => 'jenis',
 		   'formatter' => function( $d, $row ) {
+			if($d == 1){
+				$jenisbrg = "Baru";
+			} else {
+				$jenisbrg = "Repair";
+			}
+			return"$jenisbrg";
+					 
+			}
+		  ),
+	array('db'      => 'id_mtcdtl','dt'   => 5, 'field' => 'id_mtcdtl',
+		   'formatter' => function( $d, $row ) {
+			return "<a href='javascript:void(0)' onclick='delCart($d)'>Del</a>";
 			
-			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijin_id','dt'   => 5, 'field' => 'ijin_id',
-		   'formatter' => function( $d, $row ) {
-			//return "<a href='javascript:void(0)' onclick=\"delCart('$d')\">Hapus</a>";
-			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh2\" class='btn btn-warning btn-sm'>Detail</a>
-					<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh3\" class='btn btn-info btn-sm'>Edit</a>
-			";
-					 
-			}
-		  ),
-	
-		  
-	
-	
 		
 );
 
@@ -100,9 +102,8 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id JOIN (SELECT @rownum:=0) r where id_pegawai = '$_SESSION[ID_PEG]') a";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 norut, a.*, b.nama_barang, c.nama_satuan FROM tx_maintenancedtl a JOIN m_barang b ON a.id_barang=b.id_barang JOIN m_satuan c ON b.id_satuan=c.id_satuan JOIN (SELECT @rownum:=0) r $idmtc) a";
 $extraWhere = "";        
-//echo $joinQuery;
 
 echo json_encode(
 	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $joinQuery, $extraWhere )

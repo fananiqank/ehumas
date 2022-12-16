@@ -4,7 +4,7 @@ $('.server-side').DataTable( {
         "processing": true,
         "serverSide": true,
         //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
-        "ajax": "apps/trperijinan/data.php"
+        "ajax": "apps/trapprove/data.php"
     } );
 
 
@@ -16,7 +16,7 @@ $(document).ready(function(){
             if($('#jumisi').val()==$('#jumdata').val()){
                 var data = $('#form').serializeFormJSON();        
                 $('#prosesloading').html('<img src="../assets/images/loading.gif">');
-                $.post('apps/trperijinan/proses.php?act=post',data,
+                $.post('apps/trapprove/proses.php?act=post',data,
                     function(msg) {
                         if(msg=="1"){alert("Data Tersimpan");}
                         else{alert("Gagal Tersimpan!!")}
@@ -66,7 +66,7 @@ $(document).ready(function(){
 //       success:function(data)
 //       {
 //         alert(data);
-//          window.location='index.php?x=trperijinan';
+//          window.location='index.php?x=trapprove';
 //         // $('#excel_area').html(data);
 //         // $('table').css('width','100%');
 //       }
@@ -78,7 +78,7 @@ $(document).ready(function(){
 
 function delCart(a){
     if($('idmtc').val() == ''){
-        $.get( "apps/trperijinan/proses.php?act=del&id="+a, function( data ) {
+        $.get( "apps/trapprove/proses.php?act=del&id="+a, function( data ) {
             // $( ".result" ).html( data );
 
             $('.server-side').DataTable().ajax.reload();
@@ -89,7 +89,7 @@ function delCart(a){
 }
 
 function delCart2(a){
-        $.get( "apps/trperijinan/proses2.php?act=del&id="+a, function( data ) {
+        $.get( "apps/trapprove/proses2.php?act=del&id="+a, function( data ) {
             // $( ".result" ).html( data );
 
             $('.mekanikx').DataTable().ajax.reload();
@@ -99,30 +99,10 @@ function delCart2(a){
 
 $(document).on('click','#detailrh',function(e){
     e.preventDefault();
-        $("#defaultSize").modal('show');
-        $.post('apps/trperijinan/detailrh.php?id='+$(this).attr("data-id"),
+        $("#defaultSize2").modal('show');
+        $.post('apps/trapprove/detailrh.php?id='+$(this).attr("data-id"),
                 function(html){
                 $("#tampilhis").html(html);
-                }   
-            );
-});
-
-$(document).on('click','#detailrh2',function(e){
-    e.preventDefault();
-        $("#defaultSize2").modal('show');
-        $.post('apps/trperijinan/detailrh2.php?id='+$(this).attr("data-id"),
-                function(html){
-                $("#tampilhis2").html(html);
-                }   
-            );
-});
-
-$(document).on('click','#detailrh3',function(e){
-    e.preventDefault();
-        $("#defaultSize2").modal('show');
-        $.post('apps/trperijinan/detailrh3.php?id='+$(this).attr("data-id"),
-                function(html){
-                $("#tampilhis2").html(html);
                 }   
             );
 });
@@ -143,7 +123,7 @@ function uploadFile(urut,id) {
       var xhttp = new XMLHttpRequest();
 
       // Set POST method and ajax file path
-      xhttp.open("POST", "apps/trperijinan/upload.php", true);
+      xhttp.open("POST", "apps/trapprove/upload.php", true);
 
       // call on request changes state
       xhttp.onreadystatechange = function() {
@@ -154,7 +134,7 @@ function uploadFile(urut,id) {
            if(response == 1){
               alert("UPLOAD SUKSES");
               $('#file_'+urut).val('');
-              $('#syaratupload').load("apps/trperijinan/isiupload.php?id="+$('#ijinjenis_id').val());
+              $('#syaratupload').load("apps/trapprove/isiupload.php?id="+$('#ijinjenis_id').val());
            } else if(response == 2){
               alert("EKSTENSI FILE YANG DI UPLOAD TIDAK DI PERBOLEHKAN");
                $('#file_'+urut).val('');
@@ -180,6 +160,6 @@ function uploadFile(urut,id) {
 
 function tampilsyarat(id){
     //alert(id);
-        $('#syaratupload').load("apps/trperijinan/isiupload.php?id="+id);
+        $('#syaratupload').load("apps/trapprove/isiupload.php?id="+id);
 }
 </script>

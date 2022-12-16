@@ -3,7 +3,7 @@
     <div class="card-actions">
         <a href="#" class="fa fa-caret-down"></a>
     </div>
-    <h2 class="card-title">Pengajuan Perijinan</h2>
+    <h2 class="card-title">Approve Perijinan</h2>
     <p class="card-subtitle">
     </p>
 </header>
@@ -18,14 +18,14 @@
     
     <div class="col-lg-12">
         <div class="table-responsive">
-            <table class="table table-striped table-bordered server-side" id="trijinvisa">
+            <table class="table table-striped table-bordered server-side" id="trapprove">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Jenis</th>
                         <th>No Pengajuan</th>
-                        <th>No SK</th>
                         <th>Nama</th>
+                        <th>Dept</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -34,8 +34,8 @@
                         <th>ID</th>
                         <th>Jenis</th>
                         <th>No Pengajuan</th>
-                        <th>No SK</th>
                         <th>Nama</th>
+                        <th>Dept</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -49,12 +49,12 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel18"><i class="la la-list"></i>Perijinan</h4>
+                <h4 class="modal-title" id="myModalLabel18"><i class="la la-list"></i>Approve</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="tampilhis2">
+            <div class="modal-body" id="tampilhis">
                 
             </div>
             <div class="modal-footer">

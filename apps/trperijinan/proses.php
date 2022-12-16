@@ -34,6 +34,18 @@ if($_GET[act]=='post'){
 	if($last){echo "1";}else{echo "0";}
 
 
+} else if($_GET[act]=='update'){
+ 	$data2 = array(
+ 		'ijin_nosk' => $_POST['ijin_nosk'],
+		'ijin_tempatterbit' => $_POST['ijin_tempatterbit'],
+		'ijin_tglawalterbit' => $_POST['ijin_tglawalterbit'],
+		'ijin_tglakhirterbit' => $_POST['ijin_tglakhirterbit'],
+		
+ 	);
+ 	$last = $db->update("tx_perijinan",$data2,"ijin_id = '$_POST[ijin_id]'");
+
+	if($last){echo "Update Sukses";}else{echo "Gagal Update";}
+
 } else if($_GET[act]=='del'){
 	
 	$dt=$db->delete("tx_perijinan",array("ijin_id"=> $_GET[id]));

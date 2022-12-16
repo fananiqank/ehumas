@@ -4,7 +4,7 @@ session_start();
 error_reporting(0);
 include "../../webclass.php";
 $db=new kelas();
-
+foreach($db->select("m_jabatan","hak_approve","id_jabatan = '$_SESSION[ID_JAB]'") as $jab){}
 /*
  * DataTables example server-side processing script.
  *
@@ -54,14 +54,14 @@ $columns = array(
 					 
 			}
 		  ),
-	array('db'      => 'ijin_nosk','dt'   => 3, 'field' => 'ijin_nosk',
+	array('db'      => 'ijin_name','dt'   => 3, 'field' => 'ijin_name',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijin_name','dt'   => 4, 'field' => 'ijin_name',
+	array('db'      => 'nama_dep','dt'   => 4, 'field' => 'nama_dep',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
@@ -71,9 +71,7 @@ $columns = array(
 	array('db'      => 'ijin_id','dt'   => 5, 'field' => 'ijin_id',
 		   'formatter' => function( $d, $row ) {
 			//return "<a href='javascript:void(0)' onclick=\"delCart('$d')\">Hapus</a>";
-			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh2\" class='btn btn-warning btn-sm'>Detail</a>
-					<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh3\" class='btn btn-info btn-sm'>Edit</a>
-			";
+			return "<a href='javascript:void(0)' class='btn btn-warning btn-sm' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Check</a>";
 					 
 			}
 		  ),
@@ -99,8 +97,17 @@ $sql_details = array(
 
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
+if($jab['hak_approve'] == '1'){
+	if($_SESSION['ID_JAB'] == 8){
+		$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,c.nama_dep from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep JOIN (SELECT @rownum:=0) r where a.dep_id = '$_SESSION[ID_DEP]' and a.ijin_id not in (select ijin_id from tx_approve) ) a";
+	} else if($_SESSION['ID_JAB'] == 9){
+		$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,c.nama_dep from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep JOIN (SELECT @rownum:=0) r where a.ijin_id in (select ijin_id from tx_approve where skemadtl_seq = 1 and ijin_id not in (select ijin_id from tx_approve where skemadtl_seq > 1))) a";
+	} else if($_SESSION['ID_JAB'] == 10){
+		$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,c.nama_dep from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep JOIN (SELECT @rownum:=0) r where a.ijin_id in (select ijin_id from tx_approve where skemadtl_seq = 2 and ijin_id not in (select ijin_id from tx_approve where skemadtl_seq > 2))) a";
+	}
+	
+} 
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id JOIN (SELECT @rownum:=0) r where id_pegawai = '$_SESSION[ID_PEG]') a";
 $extraWhere = "";        
 //echo $joinQuery;
 

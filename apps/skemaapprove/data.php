@@ -46,20 +46,7 @@ $columns = array(
 					 
 			}
 		  ),
-	array('db'      => 'skema_approve','dt'   => 2, 'field' => 'skema_approve',
-		   'formatter' => function( $d, $row ) {
-			$expl = explode(";", $d);
-			$jml =count($expl);
-			$no=1;
-				for($i=0;$i<$jml;$i++){
-					$cc[]=$no.".".$expl[$i];
-				$no++;
-				}
-			$ccs=implode("<br>", $cc);
-			return $ccs;
-			}
-		  ),
-	array('db'      => 'skema_status','dt'   => 3, 'field' => 'skema_status',
+	array('db'      => 'skema_status','dt'   => 2, 'field' => 'skema_status',
 		   'formatter' => function( $d, $row ) {
 			if($d == 1) {
 				$showstatus = "<span class='success'>Aktif</span>";
@@ -70,7 +57,7 @@ $columns = array(
 					 
 			}
 		  ),
-	array('db'      => 'skema_id','dt'   => 4, 'field' => 'skema_id',
+	array('db'      => 'skema_id','dt'   => 3, 'field' => 'skema_id',
 		   'formatter' => function( $d, $row ) {	
 			return "<a href='javascript:void(0)' onclick=\"getEdit('$d')\">Edit</a>";
 			}

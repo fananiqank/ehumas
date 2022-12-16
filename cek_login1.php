@@ -7,7 +7,7 @@ $db = new kelas();
 $username = $_POST ['username'];
 $pass = md5($_POST ['pwd']); 
 $tabel = "user_login a left join m_pegawai b on a.id_pegawai=b.id_pegawai";
-$fild  = "a.*,b.nama_pegawai,ID_CABANG"; //menampilkan semua fild
+$fild  = "a.*,b.nama_pegawai,ID_CABANG,b.id_dep,b.id_jabatan"; //menampilkan semua fild
 $where = "a.username='$username' AND a.password='$pass'";
 // echo"select $fild from $tabel where $where";
 
@@ -23,7 +23,9 @@ $where = "a.username='$username' AND a.password='$pass'";
 			$_SESSION ['NAMA_PEG'] = $value['nama_pegawai'];
 			$_SESSION ['ID_CAB'] = $value['ID_CABANG'];
 			$_SESSION ['ID_ROLE'] = $value['ID_ROLE'];
-			$_SESSION ['iplokal'] = $_POST['ip'];		
+			$_SESSION ['iplokal'] = $_POST['ip'];
+			$_SESSION ['ID_DEP'] = $value['id_dep'];
+			$_SESSION ['ID_JAB'] = $value['id_jabatan'];		
 			
 			$haktemp="";
 			$hak_a=$db->select("m_role_dtl","*","ID_ROLE='$_SESSION[ID_ROLE]'");

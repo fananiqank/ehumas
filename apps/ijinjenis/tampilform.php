@@ -19,7 +19,14 @@
             <input type="text" class="form-control input-sm frhead" name="ijin_inisial" id="ijin_inisial" required>
         </div>
     </div>
-    
+    <div class="form-group row">
+        <label class="col-sm-4 control-label" for="w1-username">Skema Approve</label>
+        <div class="col-sm-8">
+            <select class="select2 form-control block frhead" id="skema_id" name="skema_id" required>
+                 <?php include "tampilskema.php"; ?>
+            </select>
+        </div>
+    </div>
     <div class="form-group row">
         <label class="col-sm-4 control-label" for="w1-username">Status </label>
         <div class="col-sm-8">

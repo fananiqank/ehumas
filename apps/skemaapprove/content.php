@@ -24,7 +24,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Nama</th>
-                        <th>Approve</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -32,7 +31,6 @@
                 <tfoot>
                         <th>ID</th>
                          <th>Nama</th>
-                        <th>Approve</th>
                         <th>Status</th>
                         <th>Aksi</th>
                 </tfoot>

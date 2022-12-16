@@ -25,6 +25,7 @@
                         <th>ID</th>
                         <th>Nama Ijin</th>
                         <th>Inisial</th>
+                        <th>Approve</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -33,6 +34,7 @@
                         <th>ID</th>
                         <th>Nama Ijin</th>
                         <th>Inisial</th>
+                        <th>Approve</th>
                         <th>Status</th>
                         <th>Aksi</th>
                 </tfoot>

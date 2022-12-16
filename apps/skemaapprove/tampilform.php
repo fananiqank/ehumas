@@ -22,8 +22,8 @@
                     <td >
                     <select class="select2" id="app1" name="app1">
                         <option value='0'>Pilih Approval</option>
-                        <?php foreach($db->select("m_pegawai","*","hak_approve = 1") as $peg){
-                            echo "<option value='".$peg[id_pegawai]."'>".$peg[nama_pegawai]."</option>";
+                        <?php foreach($db->select("m_jabatan","*","hak_approve = 1") as $peg){
+                            echo "<option value='".$peg[id_jabatan]."'>".$peg[nama_jabatan]."</option>";
                         } ?>
                     </select>
                 </td></tr>
