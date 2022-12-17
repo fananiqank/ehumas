@@ -18,10 +18,11 @@ if($_GET[act]=='post'){
 		'dep_id' => $_POST['dep_id'],
 		'ijin_tglpengajuan' => $date,
 		'id_pegawai' => $_SESSION['ID_PEG'],
-		'ijin_jabatan' => $_POST['ijin_jabatan'],
+		'id_jabatan' => $_POST['id_jabatan'],
 		'ijin_tglawal' => $_POST['ijin_tglawal'],
 		'ijin_tglakhir' => $_POST['ijin_tglakhir'],
 		'ijin_nik' => $_POST['ijin_nik'],
+		'ijin_keterangan' => $_POST['ijin_keterangan']
  	);
  	//var_dump($data);
 	$last = $db->insertID("tx_perijinan",$data);

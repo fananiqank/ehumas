@@ -1,10 +1,9 @@
 <?php
-
 session_start();
 error_reporting(0);
 include "../../webclass.php";
 $db=new kelas();
-foreach($db->select("m_jabatan","hak_approve","id_jabatan = '$_SESSION[ID_JAB]'") as $jab){}
+
 /*
  * DataTables example server-side processing script.
  *
@@ -22,7 +21,23 @@ foreach($db->select("m_jabatan","hak_approve","id_jabatan = '$_SESSION[ID_JAB]'"
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Easy set variables
  */
+if($_GET[tgl]){
+	$gettgl = "$_GET[tgl]";
+} else {
+	$gettgl = "";
+}
 
+if($_GET[id] == ''){
+	$idijinjenis = "";
+} else {
+	$idijinjenis = "and a.ijinjenis_id = $_GET[id]";
+}
+
+if($_GET[armid] == ''){
+	$dept = "";
+} else {
+	$dept = "and a.dep_id = $_GET[armid]";
+}
 // DB table to use
 
 $table = "tx_perijinan";
@@ -49,32 +64,67 @@ $columns = array(
 		  ),
 	array('db'      => 'ijin_kode','dt'   => 2, 'field' => 'ijin_kode',
 		   'formatter' => function( $d, $row ) {
-			
-			return"$d";
+			$isijam = "<a href='apps/trperijinan/pdfmtc.php?id=1&mtc=$d' target='_blank'>$d</a>";
+			return $isijam;
 					 
 			}
 		  ),
-	array('db'      => 'ijin_name','dt'   => 3, 'field' => 'ijin_name',
+	array('db'      => 'ijin_nosk','dt'   => 3, 'field' => 'ijin_nosk',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'nama_dep','dt'   => 4, 'field' => 'nama_dep',
+	array('db'      => 'ijin_name','dt'   => 4, 'field' => 'ijin_name',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijin_id','dt'   => 5, 'field' => 'ijin_id',
+	array('db'      => 'nama_dep','dt'   => 5, 'field' => 'nama_dep',
 		   'formatter' => function( $d, $row ) {
-			//return "<a href='javascript:void(0)' onclick=\"delCart('$d')\">Hapus</a>";
-			return "<a href='javascript:void(0)' class='btn btn-warning btn-sm' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Check</a>";
+			
+			return"$d";
 					 
 			}
 		  ),
+	array('db'      => 'nama_jabatan','dt'   => 6, 'field' => 'nama_jabatan',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'ijin_tglpengajuan','dt'   => 7, 'field' => 'ijin_tglpengajuan',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'det','dt'   => 8, 'field' => 'det',
+		   'formatter' => function( $d, $row ) {
+			$expd = explode('_', $d);
+		   	if($expd[3] == 0){
+		   		$ddet = "Reject";
+		   		$btncol = "red";
+		   	} else {
+		   		if($expd[1]==$expd[2]){
+			   		// $ddet = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh3\" class='btn btn-info btn-sm'>Edit</a>";
+			   		$ddet = "All Approved";
+			   		$btncol = "green";
+		   		} else {
+		   			$ddet = "On Progress";
+		   			$btncol = "black";
+		   		} 		   		
+		   	}
+			return"<span style='color:".$btncol."'>$ddet</span>";
+					 
+			}
+		  ),
+	
 	
 		  
 	
@@ -97,22 +147,18 @@ $sql_details = array(
 
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
-if($jab['hak_approve'] == '1'){
-	if($_SESSION['ID_JAB'] == 8){
-		$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,c.nama_dep from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep JOIN (SELECT @rownum:=0) r where a.dep_id = '$_SESSION[ID_DEP]' and a.ijin_id not in (select ijin_id from tx_approve) ) a";
-	} else if($_SESSION['ID_JAB'] == 9){
-		$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,c.nama_dep from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep JOIN (SELECT @rownum:=0) r where a.ijin_id in (select ijin_id from tx_approve where skemadtl_seq = 1 and app_status = 1 and ijin_id not in (select ijin_id from tx_approve where skemadtl_seq > 1))) a";
-	} else if($_SESSION['ID_JAB'] == 10){
-		$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,c.nama_dep from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep JOIN (SELECT @rownum:=0) r where a.ijin_id in (select ijin_id from tx_approve where skemadtl_seq = 2 and app_status = 1 and ijin_id not in (select ijin_id from tx_approve where skemadtl_seq > 2))) a";
-	} else {
-		$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,c.nama_dep from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep JOIN (SELECT @rownum:=0) r ) a";
-	}
-	
-} 
 
+$joinQuery = "FROM (select @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,concat(a.ijin_id,'_',coalesce(c.maxseq,0),'_',coalesce(d.maxseqapp,0),'_',ijin_status) det,nama_dep,nama_jabatan
+from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id 
+join m_dep e on a.dep_id=e.id_dep
+left join m_jabatan f on a.id_jabatan=f.id_jabatan
+left join (select max(skemadtl_seq) maxseq,skema_id from m_skema_approve_dtl GROUP BY skema_id) c
+on b.skema_id=c.skema_id
+left join (select max(skemadtl_seq) maxseqapp,ijin_id from tx_approve GROUP BY ijin_id) d
+on a.ijin_id=d.ijin_id JOIN (SELECT @rownum:=0) r where DATE(ijin_tglpengajuan) between '$_GET[tgl1]' and '$_GET[tgl2]' $idijinjenis $armada) a ";
 $extraWhere = "";        
-//echo $joinQuery;
 
+//echo $joinQuery;
 echo json_encode(
 	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $joinQuery, $extraWhere )
 );

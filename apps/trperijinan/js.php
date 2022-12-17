@@ -21,7 +21,7 @@ $(document).ready(function(){
                         if(msg=="1"){alert("Data Tersimpan");}
                         else{alert("Gagal Tersimpan!!")}
                         //location.reload();
-                         location.reload();
+                         window.location='index.php?x=trperijinan';
                        // swal({
                        //       title: "Konfirmasi!",
                        //       text: msg,

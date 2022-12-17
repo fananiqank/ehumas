@@ -42,7 +42,10 @@
         <div class="form-group row">
             <label class="col-sm-3 control-label" for="w1-username">Jabatan</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control input-sm headmas" name="ijin_jabatan" id="ijin_jabatan" style="min-width: 100%;" required>
+                <!-- <input type="text" class="form-control input-sm headmas" name="ijin_jabatan" id="ijin_jabatan" style="min-width: 100%;" required> -->
+                <select class="select2 form-control block headmas" id="id_jabatan" name="id_jabatan" required>
+                    <?php include "tampiljabatan.php"; ?>
+                </select>
             </div>
         </div>
         <div class="form-group row form-inline">

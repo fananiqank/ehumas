@@ -10,9 +10,23 @@ include"login.php";
 } else {
 
 //stok minimum
-$tablenst = "(select b.id_barang, nama_barang,IFNULL(b.min_stock,0) as min_stock,IFNULL(b.max_stock,0) as max_stock,IFNULL(stok,0) stok,IFNULL((stok-min_stock),0) balance from m_barang b left join (select IFNULL(sum(masukmutasi)-sum(keluarmutasi),0) as stok,id_barang from tx_mutasi GROUP BY id_barang) a on b.id_barang=a.id_barang) as asi";
-$selnst = $db->select($tablenst,"*","balance <= 0");
-$jmlnst = $db->selectcount($tablenst,"nama_barang","balance <= 0");
+foreach($db->select("m_jabatan","hak_approve","id_jabatan = '$_SESSION[ID_JAB]'") as $jab){}
+if($_SESSION['ID_JAB'] == 8){
+    $tablenst = "(SELECT a.*,b.ijinjenis_name,c.nama_dep from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep where a.dep_id = '$_SESSION[ID_DEP]' and a.ijin_id not in (select ijin_id from tx_approve) ) a";
+    $selnst = $db->select($tablenst,"*","");
+    $jmlnst = $db->selectcount($tablenst,"ijin_id","");
+} else if($_SESSION['ID_JAB'] == 9){
+    $tablenst = "(SELECT a.*,b.ijinjenis_name,c.nama_dep from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep where a.ijin_id in (select ijin_id from tx_approve where skemadtl_seq = 1 and app_status = 1 and ijin_id not in (select ijin_id from tx_approve where skemadtl_seq > 1))) a";
+    $selnst = $db->select($tablenst,"*","");
+    $jmlnst = $db->selectcount($tablenst,"ijin_id","");
+} else if($_SESSION['ID_JAB'] == 10){
+    $tablenst = "(SELECT a.*,b.ijinjenis_name,c.nama_dep from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep where a.ijin_id in (select ijin_id from tx_approve where skemadtl_seq = 2 and app_status = 1 and ijin_id not in (select ijin_id from tx_approve where skemadtl_seq > 2))) a";
+    $selnst = $db->select($tablenst,"*","");
+    $jmlnst = $db->selectcount($tablenst,"ijin_id","");
+} else {
+    $jmlnst = 0;
+}
+
 
 ?>
 
@@ -77,7 +91,7 @@ $jmlnst = $db->selectcount($tablenst,"nama_barang","balance <= 0");
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mobile-menu d-lg-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
                     <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html"><img class="brand-logo" alt="modern admin logo" src="app-assets/images/logo/logo.png">
-                            <h3 class="brand-text">E-Humas</h3>
+                            <h3 class="brand-text">Dash TI</h3>
                         </a></li>
                     <li class="nav-item d-none d-lg-block nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="toggle-icon ft-toggle-right font-medium-3 white" data-ticon="ft-toggle-right"></i></a></li>
                     <li class="nav-item d-lg-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
@@ -91,18 +105,20 @@ $jmlnst = $db->selectcount($tablenst,"nama_barang","balance <= 0");
                         
                     </ul>
                     <ul class="nav navbar-nav float-right">
-                         <li class="dropdown dropdown-notification nav-item">
+                        <?php if($_SESSION['ID_JAB'] == 8 || $_SESSION['ID_JAB'] == 9 || $_SESSION['ID_JAB'] == 10) {?>
+                        <li class="dropdown dropdown-notification nav-item">
+                            <input type="hidden" id="jmlnotif" name="jmlnotif" value="<?=$jmlnst?>">
                             <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
                                 <!-- <i class="ficon ft-bell"></i> -->
                                 <i class="ficon ft-alert-triangle"></i>
-                                Min. Stock
+                                Need Approve
                                 <span class="badge badge-pill badge-danger badge-up badge-glow"><?=$jmlnst;?></span></a>
                             <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
 
                                 <li class="dropdown-menu-header">
-                                    <h6 class="dropdown-header m-0"><span class="grey darken-2">Minimum Stock</span></h6>
+                                    <h6 class="dropdown-header m-0"><span class="grey darken-2">Need Approve</span></h6>
                                     <span class="notification-tag badge badge-danger float-right m-0">
-                                        <a href="index.php?x=lapminstock">Check</a>
+                                        <a href="index.php?x=approve">Check</a>
                                     </span>
                                 </li>
                                 <li class="scrollable-container media-list w-100">
@@ -111,7 +127,7 @@ $jmlnst = $db->selectcount($tablenst,"nama_barang","balance <= 0");
                                         <div class="media">
                                             <!-- <div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan mr-0"></i></div> -->
                                             <div class="media-body">
-                                                <h6 class="media-heading"><?=$nst['nama_barang']?><span style="float:right"><?=$nst['stok']?></span></h6>
+                                                <h6 class="media-heading"><?=$nst['ijinjenis_name']?> - <span style=""><?=$nst['ijin_name']?></span></h6>
                                                 <!-- <p class="notification-text font-small-3 text-muted">Lorem ipsum dolor sit amet, consectetuer elit.</p><small>
                                                     <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">30 minutes ago</time></small> -->
                                             </div>
@@ -123,6 +139,7 @@ $jmlnst = $db->selectcount($tablenst,"nama_barang","balance <= 0");
                                 <!-- <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read all notifications</a></li> -->
                             </ul>
                         </li>
+                        <?php } ?>
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1 user-name text-bold-700"><?php echo $_SESSION[NAMA_PEG]?></span><span class="avatar avatar-online"><!-- <img src="../../../app-assets/images/portrait/small/avatar-s-19.png" alt="avatar"> --><i></i></span></a>
                             <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
                                 <div class="dropdown-divider"></div><a class="dropdown-item" href="apps/layouts/logout.php"><i class="ft-power"></i> Logout</a>
@@ -165,7 +182,7 @@ $jmlnst = $db->selectcount($tablenst,"nama_barang","balance <= 0");
 
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light navbar-border navbar-shadow">
-        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2022 <a class="text-bold-800 grey darken-2" href="javascript:void(0)" target="_blank">DASH TI</a></span><span class="float-md-right d-none d-lg-block">ModernAdmin<i class="ft-heart pink"></i><span id="scroll-top"></span></span></p>
+        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2021 <a class="text-bold-800 grey darken-2" href="javascript:void(0)" target="_blank">DASH TI</a></span><span class="float-md-right d-none d-lg-block">ModernAdmin<i class="ft-heart pink"></i><span id="scroll-top"></span></span></p>
     </footer>
     <!-- END: Footer-->
 
@@ -194,10 +211,16 @@ $jmlnst = $db->selectcount($tablenst,"nama_barang","balance <= 0");
 
     <!-- BEGIN: Page JS-->
     <script src="app-assets/js/scripts/forms/select/form-select2.js"></script>
-    <script src="app-assets/js/scripts/pages/dashboard-sales.js"></script>
+    <!-- <script src="app-assets/js/scripts/pages/dashboard-sales.js"></script> -->
     <script src="app-assets/js/scripts/extensions/ex-component-sweet-alerts.js"></script>
     <!-- END: Page JS-->
     <script type="text/javascript">
+        $( document ).ready(function() {
+            if($('#jmlnotif').val() > 0){
+                alert("Ada Pengajuan Perijinan Masuk: "+$('#jmlnotif').val());
+            } 
+        });
+
         (function ($) {
             $.fn.serializeFormJSON = function () {
 
