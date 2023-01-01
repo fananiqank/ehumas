@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 error_reporting(0);
 include "../../webclass.php";
@@ -24,11 +23,16 @@ $db=new kelas();
  */
 
 // DB table to use
+if($_GET['idmtc'] == ''){
+	$idmtc = "where stinput = 0 and userinput='$_SESSION[ID_PEG]'";
+} else {
+	$idmtc = "where stinput = 1 and a.id_mtc='$_GET[idmtc]'";
+}
 
-$table = "tx_perijinan";
+$table = "m_armada";
 
 // Table's primary key
-$primaryKey = 'ijin_id';
+$primaryKey = 'arm_id';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
@@ -40,31 +44,32 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'ijin_kode','dt'   => 1, 'field' => 'ijin_kode',
+	array('db'      => 'name_mekanik','dt'   => 1, 'field' => 'name_mekanik',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijin_name','dt'   => 2, 'field' => 'ijin_name',
+	array('db'      => 'pekerjaan','dt'   => 2, 'field' => 'pekerjaan',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'jenis_visa','dt'   => 3, 'field' => 'jenis_visa',
+	array('db'      => 'biaya','dt'   => 3, 'field' => 'biaya',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijin_id','dt'   => 4, 'field' => 'ijin_id',
+
+	array('db'      => 'idtransmekanik','dt'   => 4, 'field' => 'idtransmekanik',
 		   'formatter' => function( $d, $row ) {
 			//return "<a href='javascript:void(0)' onclick=\"delCart('$d')\">Hapus</a>";
-			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">History</a>		<a target='_blank' href='./apps/trijinvisa/cetak_pdf.php?id=$d' class='btn btn-warning btn-sm'>Print</a>";
+			return "<a href='javascript:void(0)' onclick='delCart2($d)'>Hapus</a>";
 					 
 			}
 		  ),
@@ -91,9 +96,9 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.ijin_id,ijin_kode,ijin_name,bvisa_jenis,case when bvisa_jenis = 1 then '211a/211B Single-Entry' else 'Multiple-Entry (VKUBP)' end jenis_visa  from tx_perijinan a join tx_bvisa b on a.ijin_id=b.ijin_id JOIN (SELECT @rownum:=0) r where ijinjenis_id = 1) a";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut, b.name_mekanik,pekerjaan,biaya, idtransmekanik,a.id_mekanik FROM tx_mekanik a JOIN (SELECT @rownum:=0) r join m_mekanik b using(id_mekanik) $idmtc) a
+			";
 $extraWhere = "";        
-//echo $joinQuery;
 
 echo json_encode(
 	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $joinQuery, $extraWhere )
