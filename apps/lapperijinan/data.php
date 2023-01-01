@@ -64,16 +64,20 @@ $columns = array(
 		  ),
 	array('db'      => 'ijin_kode','dt'   => 2, 'field' => 'ijin_kode',
 		   'formatter' => function( $d, $row ) {
-			$isijam = "<a href='apps/trperijinan/pdfmtc.php?id=1&mtc=$d' target='_blank'>$d</a>";
+			$isijam = "<a href='apps/lapperijinan/pdfmtc.php?kode=$d' target='_blank'>$d</a>";
 			return $isijam;
 					 
 			}
 		  ),
-	array('db'      => 'ijin_nosk','dt'   => 3, 'field' => 'ijin_nosk',
+	array('db'      => 'tot','dt'   => 3, 'field' => 'tot',
 		   'formatter' => function( $d, $row ) {
-			
-			return"$d";
-					 
+		   	$exp = explode('_',$d);
+		   	if($exp[2] > 0){
+				$isijam = "<a href='apps/lapperijinan/skembed.php?id=$exp[1]' target='_blank'>$exp[0]</a>";
+			} else {
+				$isijam = "";
+			}
+			return $isijam;
 			}
 		  ),
 	array('db'      => 'ijin_name','dt'   => 4, 'field' => 'ijin_name',
@@ -148,9 +152,9 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (select @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,concat(a.ijin_id,'_',coalesce(c.maxseq,0),'_',coalesce(d.maxseqapp,0),'_',ijin_status) det,nama_dep,nama_jabatan
+$joinQuery = "FROM (select @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,concat(a.ijin_id,'_',coalesce(c.maxseq,0),'_',coalesce(d.maxseqapp,0),'_',ijin_status) det,nama_dep,nama_jabatan,concat(ijin_nosk,'_',a.ijin_id,'_',ijin_status) tot
 from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id 
-join m_dep e on a.dep_id=e.id_dep
+left join m_dep e on a.dep_id=e.id_dep
 left join m_jabatan f on a.id_jabatan=f.id_jabatan
 left join (select max(skemadtl_seq) maxseq,skema_id from m_skema_approve_dtl GROUP BY skema_id) c
 on b.skema_id=c.skema_id

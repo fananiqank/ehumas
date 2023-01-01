@@ -7,6 +7,8 @@ $date = date("Y-m-d H:i:s");
 
 if($_GET[act]=='post'){
 	if($_POST['typeform'] == 1){
+		$no = $db->selectcount("m_subdep","id_sub","");
+ 		$IDP = $no+1;
 		$db->query("
 			insert into m_subdep (
 				id_sub,
@@ -15,7 +17,7 @@ if($_GET[act]=='post'){
 				id_dep
 			) 
 			values (
-				'$_POST[id_sub]',
+				 '$IDP',
 				'$_POST[kd_sub]',
 				'$_POST[nama_sub]',
 				'$_POST[iddep]'
@@ -41,18 +43,24 @@ if($_GET[act]=='post'){
 				status='$_POST[status]'
 			");
 	} else {
+		$no = $db->selectcount("m_dep","id_dep","");
+ 		$IDP = $no+1;
+
 		$db->query("
 			insert into m_dep (
 				id_dep,
 				kd_dep,
-				nama_dep
+				nama_dep,
+				id_divisi
 			) 
 			values (
-				'$_POST[id_dep]',
+				'$IDP',
 				'$_POST[kd_dep]',
-				'$_POST[nama_dep]'
+				'$_POST[nama_dep]',
+				'$_POST[divisi]'
 			) ON DUPLICATE KEY UPDATE 
-				nama_dep='$_POST[nama_dep]'
+				nama_dep='$_POST[nama_dep]',
+				kd_dep='$_POST[kd_dep]'
 			");
 	}
 } else if($_GET[act]=='get'){

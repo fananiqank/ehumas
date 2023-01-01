@@ -40,28 +40,35 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'ijinjenis_name','dt'   => 1, 'field' => 'ijinjenis_name',
+	array('db'      => 'typeijin','dt'   => 1, 'field' => 'typeijin',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijinjenis_inisial','dt'   => 2, 'field' => 'ijinjenis_inisial',
+	array('db'      => 'ijinjenis_name','dt'   => 2, 'field' => 'ijinjenis_name',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'skema_name','dt'   => 3, 'field' => 'skema_name',
+	array('db'      => 'ijinjenis_inisial','dt'   => 3, 'field' => 'ijinjenis_inisial',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijinjenis_status','dt'   => 4, 'field' => 'ijinjenis_status',
+	array('db'      => 'skema_name','dt'   => 4, 'field' => 'skema_name',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'ijinjenis_status','dt'   => 5, 'field' => 'ijinjenis_status',
 		   'formatter' => function( $d, $row ) {
 			if($d == 1) {
 				$showstatus = "<span class='success'>Aktif</span>";
@@ -72,7 +79,7 @@ $columns = array(
 					 
 			}
 		  ),
-	array('db'      => 'ijinjenis_id','dt'   => 5, 'field' => 'ijinjenis_id',
+	array('db'      => 'ijinjenis_id','dt'   => 6, 'field' => 'ijinjenis_id',
 		   'formatter' => function( $d, $row ) {	
 			return "<a href='javascript:void(0)' onclick=\"getEdit('$d')\">Edit</a>";
 			}
@@ -96,7 +103,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.skema_name from m_ijinjenis a join m_skema_approve b on a.skema_id=b.skema_id JOIN (SELECT @rownum:=0) r) a";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.skema_name,case when a.ijinjenis_type = 1 then 'Keimigrasian & TKA' when a.ijinjenis_type = 2 then 'Komersial/Usaha' else 'Assets' end as typeijin from m_ijinjenis a join m_skema_approve b on a.skema_id=b.skema_id JOIN (SELECT @rownum:=0) r) a";
 $extraWhere = "";        
 
 echo json_encode(

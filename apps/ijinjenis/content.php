@@ -23,6 +23,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Type</th>
                         <th>Nama Ijin</th>
                         <th>Inisial</th>
                         <th>Approve</th>
@@ -32,6 +33,7 @@
                 </thead>
                 <tfoot>
                         <th>ID</th>
+                        <th>Type</th>
                         <th>Nama Ijin</th>
                         <th>Inisial</th>
                         <th>Approve</th>

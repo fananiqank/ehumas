@@ -6,24 +6,35 @@ $db=new kelas();
 $date = date("Y-m-d H:i:s");
 
 if($_GET[act]=='post'){
-	$db->query("
-		insert into m_ijinjenis (
+	$berkasid = $db->idurut("m_berkas","berkas_id");
+	if($_POST[ijin_id] == ''){
+		$db->query("
+		insert into m_berkas (
+			berkas_id,
 			ijinjenis_id,
-			ijinjenis_name,
-			ijinjenis_status,
-			ijinjenis_createdate
+			berkas_deskripsi,
+			berkas_status,
+			berkas_createdate
 		) 
 		values (
+			$berkasid,
 			'$_POST[ijin_id]',
-			'$_POST[ijin_nm]',
-			'$_POST[ijin_status]',
+			'$_POST[berkas_nm]',
+			'$_POST[berkas_status]',
 			'$date'
-		) ON DUPLICATE KEY UPDATE 
-			ijinjenis_name='$_POST[ijin_nm]',
-			ijinjenis_status='$_POST[ijin_status]'
+		)");
+	} else {
+		$db->query("
+		update m_berkas set  
+			ijinjenis_id='$_POST[ijin_id]',
+			berkas_deskripsi='$_POST[berkas_nm]',
+			berkas_status='$_POST[berkas_status]'
+		where berkas_id = '$_POST[berkas_id]'
 		");
+	}
+	
 } else if($_GET[act]=='get'){
-	$dt=$db->select("m_ijinjenis","*","ijinjenis_id='$_GET[id]'");
+	$dt=$db->select("m_berkas","*","berkas_id='$_GET[id]'");
 	echo json_encode($dt);
 
 }

@@ -54,21 +54,28 @@ $columns = array(
 					 
 			}
 		  ),
-	array('db'      => 'ijin_name','dt'   => 3, 'field' => 'ijin_name',
+	array('db'      => 'ijin_nosk','dt'   => 3, 'field' => 'ijin_nosk',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'nama_dep','dt'   => 4, 'field' => 'nama_dep',
+	array('db'      => 'ijin_name','dt'   => 4, 'field' => 'ijin_name',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'ijin_id','dt'   => 5, 'field' => 'ijin_id',
+	array('db'      => 'nama_dep','dt'   => 5, 'field' => 'nama_dep',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'ijin_id','dt'   => 6, 'field' => 'ijin_id',
 		   'formatter' => function( $d, $row ) {
 			//return "<a href='javascript:void(0)' onclick=\"delCart('$d')\">Hapus</a>";
 			return "<a href='javascript:void(0)' class='btn btn-warning btn-sm' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Check</a>";

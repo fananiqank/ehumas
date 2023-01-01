@@ -7,6 +7,14 @@
 ?>
 <form class="form-user" id="form" method="post" enctype="multipart/form-data" autocomplete="off" >
     <div class="form-group row">
+        <label class="col-sm-4 control-label" for="w1-username">Divisi</label>
+        <div class="col-sm-8">
+            <select class="select2 form-control block" id="divisi" name="divisi" required>
+                 <?php include "tampildivisi.php"; ?>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
         <label class="col-sm-4 control-label" for="w1-username">Kode Departemen</label>
         <div class="col-sm-8">
             <input type="text" class="form-control input-sm" name="kd_dep" id="kd_dep" required>

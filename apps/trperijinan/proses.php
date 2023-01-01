@@ -11,8 +11,15 @@ if($_GET[act]=='post'){
  	
  	$nopart = $selno+1;
  	$nomasuk = $ijj[ijinjenis_inisial] . sprintf('%05s', $nopart);
+ 	if($_POST['ijinjenis_id'] == 7 || $_POST['ijinjenis_id'] == 8){
+ 		$ijinname = $_POST['kalbar_name'];
+ 	} else if($_POST['ijinjenis_id'] == 9){
+ 		$ijinname = $_POST['imb_name'];
+ 	} else {
+ 		$ijinname = $_POST['ijin_name'];
+ 	}
  	$data = array(
- 		'ijin_name' => $_POST['ijin_name'],
+ 		'ijin_name' => $ijinname,
 		'ijinjenis_id' => $_POST['ijinjenis_id'],
 		'ijin_kode' => $nomasuk,
 		'dep_id' => $_POST['dep_id'],
@@ -22,11 +29,130 @@ if($_GET[act]=='post'){
 		'ijin_tglawal' => $_POST['ijin_tglawal'],
 		'ijin_tglakhir' => $_POST['ijin_tglakhir'],
 		'ijin_nik' => $_POST['ijin_nik'],
-		'ijin_keterangan' => $_POST['ijin_keterangan']
+		'ijin_keterangan' => $_POST['ijin_keterangan'],
+		'ijin_costcenter' => $_POST['ijin_costcenter'],
  	);
  	//var_dump($data);
 	$last = $db->insertID("tx_perijinan",$data);
 
+	if($_POST['ijinjenis_id'] == 1){
+		$data2 = array(
+ 		'ijin_id' => $last,
+		'bvisa_jenis' => $_POST['bvisa_jenis'],
+		'bvisa_alamat' => $_POST['bvisa_alamat'],
+	 	);
+		$last2 = $db->insertID("tx_bvisa",$data2);
+	}
+
+	if($_POST['ijinjenis_id'] == 3){
+		$data3 = array(
+ 		'ijin_id' => $last,
+		'visa_jenis' => $_POST['visa_jenis'],
+	 	);
+		$last3 = $db->insertID("tx_visa",$data3);
+	}
+
+	if($_POST['ijinjenis_id'] == 4){
+		$data4 = array(
+ 		'ijin_id' => $last,
+		'tka_status' => $_POST['tka_status'],
+		'tka_lamatinggal' => $_POST['tka_lamatinggal'],
+	 	);
+		$last4 = $db->insertID("tx_visatka",$data4);
+	}
+
+	if($_POST['ijinjenis_id'] == 5){
+		$data5 = array(
+ 		'ijin_id' => $last,
+		'slo_tujuan' => $_POST['slo_tujuan'],
+		'slo_biaya1' => $_POST['slo_biaya1'],
+		'slo_biaya2' => $_POST['slo_biaya2'],
+	 	);
+		$last5 = $db->insertID("tx_slo",$data5);
+	}
+
+	if($_POST['ijinjenis_id'] == 6){
+		$data6 = array(
+ 		'ijin_id' => $last,
+		'sio_tujuan' => $_POST['sio_tujuan'],
+		'sio_biaya1' => $_POST['sio_biaya1'],
+		'sio_biaya2' => $_POST['sio_biaya2'],
+	 	);
+		$last6 = $db->insertID("tx_sio",$data6);
+	}
+
+	if($_POST['ijinjenis_id'] == 7){
+		$data7 = array(
+ 		'ijin_id' => $last,
+		'kalbar_name' => $_POST['kalbar_name'],
+		'kalbar_type' => $_POST['kalbar_type'],
+		'kaltbar_lokasi' => $_POST['kaltbar_lokasi'],
+		'kalbar_jenisijin' => $_POST['kalbar_jenisijin'],
+		'kalbar_pengajuan' => 1
+	 	);
+		$last7 = $db->insertID("tx_kalibrasi",$data7);
+		$db->query("update tx_perijinan set ijin_name='$_POST[kalbar_name]' where ijin_id = '$last'");
+	}
+
+	if($_POST['ijinjenis_id'] == 8){
+		$data8 = array(
+ 		'ijin_id' => $last,
+		'kalbar_name' => $_POST['kalbar_name'],
+		'kalbar_type' => $_POST['kalbar_type'],
+		'kaltbar_lokasi' => $_POST['kaltbar_lokasi'],
+		'kalbar_jenisijin' => $_POST['kalbar_jenisijin'],
+		'kalbar_pengajuan' => 2
+	 	);
+		$last8 = $db->insertID("tx_kalibrasi",$data8);
+		$db->query("update tx_perijinan set ijin_name='$_POST[kalbar_name]' where ijin_id = '$last'");
+	}
+
+	if($_POST['ijinjenis_id'] == 9){
+		$data9 = array(
+ 		'ijin_id' => $last,
+		'imb_name' => $_POST['imb_name'],
+		'imb_lokasi' => $_POST['imb_lokasi'],
+		'imb_type' => $_POST['imb_type'],
+		'imb_tglpekerjaan' => $_POST['imb_tglpekerjaan']
+
+	 	);
+		$last9 = $db->insertID("tx_imb",$data9);
+	}
+
+	if($_POST['ijinjenis_id'] == 10){
+		$data9 = array(
+ 		'ijin_id' => $last,
+		'sia_tujuan' => $_POST['sia_tujuan'],
+		'sia_biaya1' => $_POST['sia_biaya1'],
+		'sia_biaya2' => $_POST['sia_biaya2'],
+	 	);
+		$last10 = $db->insertID("tx_sia",$data10);
+	}
+
+	if($_POST['ijinjenis_id'] == 11){
+		$data10 = array(
+ 		'ijin_id' => $last,
+		'ptka_hp' => $_POST['ptka_hp'],
+		'ptka_email' => $_POST['ptka_email'],
+		'ptka_name' => $_POST['ptka_name'],
+		'ptka_paspor' => $_POST['ptka_paspor']
+
+	 	);
+		$last10 = $db->insertID("tx_ptka",$data10);
+	}
+
+	if($_POST['ijinjenis_id'] == 12){
+		$data11 = array(
+ 		'ijin_id' => $last,
+		'paspor_lamatinggal' => $_POST['paspor_lamatinggal'],
+		'paspor_negara' => $_POST['paspor_negara'],
+		
+
+	 	);
+		$last11 = $db->insertID("tx_paspor",$data11);
+	}
+
+	
 	$db->query("update uploaddata set
 				upload_status = 1,
 				ijin_id = $last

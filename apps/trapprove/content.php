@@ -3,7 +3,7 @@
     <div class="card-actions">
         <a href="#" class="fa fa-caret-down"></a>
     </div>
-    <h2 class="card-title">Approve Perijinan</h2>
+    <h2 class="card-title">Approve Perijinan <?php echo $_SESSION['ID_DEP'];?></h2>
     <p class="card-subtitle">
     </p>
 </header>
@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-12">
         <div class="btn-group float-md-right" style="margin-bottom: 1%">
-            <a class="btn btn-info" href="index.php?x=trperijinaninput">Input</a>
+            <!-- <a class="btn btn-info" href="index.php?x=trperijinaninput">Input</a> -->
         </div>
     </div>
     
@@ -24,6 +24,7 @@
                         <th>ID</th>
                         <th>Jenis</th>
                         <th>No Pengajuan</th>
+                        <th>No SK</th>
                         <th>Nama</th>
                         <th>Dept</th>
                         <th>Aksi</th>
@@ -34,6 +35,7 @@
                         <th>ID</th>
                         <th>Jenis</th>
                         <th>No Pengajuan</th>
+                        <th>No SK</th>
                         <th>Nama</th>
                         <th>Dept</th>
                         <th>Aksi</th>

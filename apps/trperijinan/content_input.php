@@ -1,4 +1,16 @@
 <form class="form-user" id="form" method="post" enctype="multipart/form-data" novalidate autocomplete="off">
+<?php 
+    if($_GET[x] == 'trperijinaninput1'){
+        $xinput = 'trperijinan';
+        $type = 1;
+    } else if($_GET[x] == 'trperijinaninput2'){
+        $xinput = 'trperijinan2';
+        $type = 2;
+    } else if($_GET[x] == 'trperijinaninput3'){
+        $xinput = 'trperijinan3';
+        $type = 3;
+    }
+?>  
 <section class="card">
 <header class="card-header">
     <div class="card-actions">
@@ -6,77 +18,30 @@
     </div>
     <h2 class="card-title">Input Perijinan</h2>
     <p class="card-subtitle">
-        <a href="index.php?x=trijinvisa" style="float:right;" class="btn btn-info btn-sm">Back to List</a>
+        <a href="index.php?x=trperijinan<?=$type?>" style="float:right;" class="btn btn-info btn-sm">Back to List</a>
     </p>
 </header>
 <div class="card-body">
-  
+
 <div class="row">
     <div class="col-md-6">
         <div class="form-group row form-inline">
-         
+         <input type="hidden" name="typeijin" id="typeijin" value="<?=$type?>">
             <label class="col-sm-3 control-label" for="w1-username">Jenis Perijinan</label>
             <div class="col-sm-9">
-                <select class="select2 form-control block headmas" id="ijinjenis_id" name="ijinjenis_id" onchange="tampilsyarat(this.value)" required>
+                <select class="select2 form-control block headmas" id="ijinjenis_id" name="ijinjenis_id" onchange="tampilsyarat(this.value,<?=$type?>,'<?=$_GET[x]?>')" required>
                     <?php include "tampilijinjenis.php"; ?>
                 </select>
             </div>
             
         </div>
-        <div class="form-group row form-inline">
-         
-            <label class="col-sm-3 control-label" for="w1-username">Nama</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control input-sm headmas" name="ijin_name" id="ijin_name" style="min-width: 100%;" required>
-            </div>
-            
+        <div id="tampilperijinan">
         </div>
-        <div class="form-group row form-inline">
-        <label class="col-sm-3 control-label" for="w1-username">Dept.</label>
-            <div class="col-sm-9">
-                <select class="select2 form-control block headmas" id="dep_id" name="dep_id" required>
-                    <?php include "tampildep.php"; ?>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-3 control-label" for="w1-username">Jabatan</label>
-            <div class="col-sm-7">
-                <!-- <input type="text" class="form-control input-sm headmas" name="ijin_jabatan" id="ijin_jabatan" style="min-width: 100%;" required> -->
-                <select class="select2 form-control block headmas" id="id_jabatan" name="id_jabatan" required>
-                    <?php include "tampiljabatan.php"; ?>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row form-inline">
-         
-            <label class="col-sm-3 control-label" for="w1-username">NIK/Paspor</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control input-sm headmas" name="ijin_nik" id="ijin_nik" style="min-width: 100%;" required>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-3 control-label" for="w1-username">Rencana Tanggal Ijin</label>
-            <div class="col-sm-4">
-                 <input type="date" class="form-control input-sm" id="ijin_tglawal" name="ijin_tglawal" value="<?=$mtc[ijin_tglawal]?>" style="width: 100%" required>
-            </div>
-            <div class="col-sm-1" align="center">-</div>
-            <div class="col-sm-4">
-                 <input type="date" class="form-control input-sm" id="ijin_tglakhir" name="ijin_tglakhir" value="<?=$mtc[ijin_tglakhir]?>" style="width: 100%" required>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-3 control-label" for="w1-username">Alasan Kebutuhan</label>
-            <div class="col-sm-9">
-                <textarea id="ijin_keterangan" name="ijin_keterangan" style="width: 100%" value="<?=$mtc[ijin_keterangan]?>" required></textarea>    
-            </div>
-        </div>
-        
     </div>
     <div class="col-md-6">
         
         
-        <div class="form-group row" id="syaratupload">
+        <div id="syaratupload">
             
             <?php //include "isiupload.php"; ?>
         </div>

@@ -7,6 +7,14 @@
 ?>
 <form class="form-user" id="form" method="post" enctype="multipart/form-data" novalidate autocomplete="off">
     <div class="form-group row">
+        <label class="col-sm-4 control-label" for="w1-username">Type Ijin</label>
+        <div class="col-sm-8">
+            <select class="select2 form-control block frhead" id="ijinjenis_type" name="ijinjenis_type" required>
+                 <?php include "tampilijinjenistype.php"; ?>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
         <label class="col-sm-4 control-label" for="w1-username">Nama Ijin</label>
         <div class="col-sm-8">
             <input type="text" class="form-control input-sm frhead" name="ijin_nm" id="ijin_nm" required>

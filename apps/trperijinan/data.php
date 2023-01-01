@@ -76,8 +76,8 @@ $columns = array(
 		   		$btncol = "btn-danger";
 		   	} else {
 		   		if($expd[1]==$expd[2]){
-			   		// $ddet = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh3\" class='btn btn-info btn-sm'>Edit</a>";
-			   		$ddet = "";
+			   		 $ddet = "<a href='./apps/trperijinan/pdfmtc.php?id=$expd[0]' class='label label-primary' style='cursor:pointer;float:right' title='Cetak' target='_blank'><i class='ft-printer' aria-hidden='true' style='font-size:16px;'></i></a>";
+			   		// $ddet = "";
 			   		$btncol = "btn-success";
 		   		} else {
 		   			$ddet = "";
@@ -85,7 +85,15 @@ $columns = array(
 		   		} 		   		
 		   	}
 			//return "<a href='javascript:void(0)' onclick=\"delCart('$d')\">Hapus</a>";
-			return "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh2\" class='btn ".$btncol." btn-sm'>Detail</a>".$ddet;
+			if($expd[4] == 7 || $expd[4] == 8){
+				$rets = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh5\" class='btn ".$btncol." btn-sm'>Detail</a>".$ddet;
+			} else if ($expd[4] == 9){
+				$rets = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh6\" class='btn ".$btncol." btn-sm'>Detail</a>".$ddet;
+			} else {
+				$rets = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh2\" class='btn ".$btncol." btn-sm'>Detail</a>".$ddet;
+			}
+			
+			return $rets;
 					 
 			}
 		  ),
@@ -112,12 +120,12 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,concat(a.ijin_id,'_',coalesce(c.maxseq,0),'_',coalesce(d.maxseqapp,0),'_',ijin_status) det 
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,concat(a.ijin_id,'_',coalesce(c.maxseq,0),'_',coalesce(d.maxseqapp,0),'_',ijin_status,'_',a.ijinjenis_id) det 
 from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id 
 left join (select max(skemadtl_seq) maxseq,skema_id from m_skema_approve_dtl GROUP BY skema_id) c
 on b.skema_id=c.skema_id
 left join (select max(skemadtl_seq) maxseqapp,ijin_id from tx_approve GROUP BY ijin_id) d
-on a.ijin_id=d.ijin_id JOIN (SELECT @rownum:=0) r where id_pegawai = '$_SESSION[ID_PEG]') a";
+on a.ijin_id=d.ijin_id JOIN (SELECT @rownum:=0) r where b.ijinjenis_type = $_GET[type] and id_pegawai = '$_SESSION[ID_PEG]') a";
 $extraWhere = "";        
 //echo $joinQuery;
 

@@ -43,10 +43,12 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                     <input type="hidden" name="ijin_id" id="ijin_id" value="<?=$_GET[id]?>">
                     <input type="hidden" name="ijinjenis_id" id="ijinjenis_id" value="<?=$val2[ijinjenis_id]?>">
                 </div>
+                <?php if($val2[ijinjenis_id] == 1){ ?>
                 <label class="col-sm-2" style="font-size: 13px;"><b>Rencana Tgl Perijinan</b></label>
                 <div class="col-4">: 
                     <?=$val2[ijin_tglawal]." - ".$val2[ijin_tglakhir]?>
                 </div>
+                <?php } ?>
             </div>
            <div class="form-group row">
                 <label class="col-sm-2" style="font-size: 13px;"><b>No. Pengajuan</b></label>
@@ -83,6 +85,51 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                 
             </div>
             <div class="form-group row">
+                <label class="col-sm-2" style="font-size: 13px;"><b>Cost Center</b></label>
+                <div class="col-4">: 
+                    <?=$val2[ijin_costcenter]?>
+                </div>
+                
+            </div>
+                <?php  
+                if($val2[ijinjenis_id] == 1 )
+                { 
+                    include "../includeform/formshvisabisnis.php";
+                } 
+                
+                if ($val2[ijinjenis_id] == 3 ){ 
+                    include "../includeform/formshvisa.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 4 ){ 
+                    include "../includeform/formshvisatka.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 5 ){ 
+                    include "../includeform/formshslo.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 6 ){ 
+                    include "../includeform/formshsio.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 10 ){ 
+                    include "../includeform/formshsia.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 11 ){ 
+                    include "../includeform/formshpendampingtka.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 12 ){ 
+                    include "../includeform/formshpaspor.php";
+                } 
+
+
+
+                ?> 
+            <hr>
+            <div class="form-group row">
                 <label class="col-sm-2" style="font-size: 13px;"><b>No. SK</b></label>
                 <div class="col-4">: 
                     <?=$val2[ijin_nosk]?>
@@ -110,8 +157,8 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                 <?php $no = 1;
                     foreach ($db->select("uploaddata a join m_berkas b on a.berkas_id=b.berkas_id","a.*,b.berkas_deskripsi","ijin_id='$_GET[id]'") as $upd) { ?>
                     <button type="button" class="accordion"><?=$no.". ".$upd[berkas_deskripsi]?></button>
-                    <div class="panel table-responsive">
-                        <embed src="data/<?=$upd[upload_name]?>" width="100%" height="300"></embed>
+                    <div class="panel table-responsive" style="text-align:center">
+                        <embed src="data/<?=$upd[upload_name]?>" width="50%" height="250"></embed>
                     </div>
                 <?php $no++; } ?>
             </div>

@@ -7,17 +7,24 @@
 ?>
 <form class="form-user" id="form" method="post" enctype="multipart/form-data" novalidate autocomplete="off">
     <div class="form-group row">
-        <label class="col-sm-4 control-label" for="w1-username">Nama Ijin</label>
+        <label class="col-sm-4 control-label" for="w1-username">Nama Berkas</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control input-sm frhead" name="ijin_nm" id="ijin_nm" required>
-            <input type="hidden" class="form-control input-sm frhead" name="ijin_id" id="ijin_id">
+            <input type="text" class="form-control input-sm frhead" name="berkas_nm" id="berkas_nm" required>
+            <input type="hidden" class="form-control input-sm frhead" name="berkas_id" id="berkas_id">
         </div>
     </div>
-    
+    <div class="form-group row">
+        <label class="col-sm-4 control-label" for="w1-username">Jenis Ijin </label>
+        <div class="col-sm-8">
+            <select class="select2 form-control block frhead" id="ijin_id" name="ijin_id" required>
+                 <?php include "tampil_jenis_ijin.php"; ?>
+            </select>
+        </div>
+    </div>
     <div class="form-group row">
         <label class="col-sm-4 control-label" for="w1-username">Status </label>
         <div class="col-sm-8">
-            <select class="select2 form-control block frhead" id="ijin_status" name="ijin_status" required>
+            <select class="select2 form-control block frhead" id="berkas_status" name="berkas_status" required>
                  <?php include "tampilstatus.php"; ?>
             </select>
         </div>

@@ -122,7 +122,8 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                     ?>
                 </div>
             </div>
-<?php } ?>            
+<?php } ?>  
+<?php if ($_SESSION['ID_JAB'] == 10) { ?>          
             <div class="form-group row">
                 <label class="col-sm-2" style="font-size: 13px;"><b>Tempat Terbit</b></label>
                 <div class="col-4">
@@ -141,6 +142,7 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                 </div>    
                 
             </div>
+<?php } ?>
             <div class="form-group row">
                <label class="col-sm-2" style="font-size: 13px;"><b>Remark</b></label>
                 <div class="col-sm-8">: 

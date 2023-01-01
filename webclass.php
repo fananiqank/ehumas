@@ -27,10 +27,10 @@ class kelas extends PDO{
     public function __construct()
 	{ 
         $this->engine	= 'mysql'; 
-        $this->host	  	= 'dashteknologi.com'; 
+        $this->host	  	= '103.172.204.123'; 
 		//$this->host	  	= '192.168.100.99'; 
         $this->database = 'u1352283_elicense'; 
-		$this->user 	= 'u1352283_webdev'; 
+		$this->user 	= 'dash'; 
         $this->pass 	= 'dash-123456789'; 
         $this->port 	= '3306';
 		//$this->pass 	= 'sembarang'; 

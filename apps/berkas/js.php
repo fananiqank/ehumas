@@ -3,7 +3,7 @@ $('.server-side').DataTable( {
         "processing": true,
         "serverSide": true,
         //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
-        "ajax": "apps/ijinjenis/data.php"
+        "ajax": "apps/berkas/data.php"
     } );
 
 $(document).ready(function(){
@@ -14,11 +14,11 @@ $(document).ready(function(){
                     event.preventDefault();
                     var data = $('#form').serializeFormJSON();        
                     $('#prosesloading').html('<img src="./assets/images/loading.gif">');
-                    $.post('apps/ijinjenis/proses.php?act=post',data,
+                    $.post('apps/berkas/proses.php?act=post',data,
 
                         function(msg) {
                            $('#prosesloading').html('');
-                           $('#form').load("apps/ijinjenis/tampilform.php?reload=1");
+                           $('#form').load("apps/berkas/tampilform.php?reload=1");
                            $('.server-side').DataTable().ajax.reload();
                            swal({
                                  title: "Input Success!",
@@ -50,16 +50,17 @@ function nolam(a){
     }
 }
 function getEdit(a){
-     $.get( "apps/ijinjenis/proses.php?act=get&id="+a, function( data ) {
+     $.get( "apps/berkas/proses.php?act=get&id="+a, function( data ) {
         // $( ".result" ).html( data );
         var jsonData = JSON.parse(data);
         for (var i = 0; i < jsonData.length; i++) {
             var counter = jsonData[i];
             //console.log(counter.ijinjenis_id);
             // alert(counter.cust_id+"_"+counter.arm_nolambung.substring(0,3));
-            $('#ijin_id').val(counter.ijinjenis_id);
-            $('#ijin_nm').val(counter.ijinjenis_name);
-            $('#ijin_status').load("apps/ijinjenis/tampilstatus.php?status="+counter.ijinjenis_status);
+            $('#berkas_id').val(counter.berkas_id);
+            $('#berkas_nm').val(counter.berkas_deskripsi);
+            $('#ijin_id').load("apps/berkas/tampil_jenis_ijin.php?status="+counter.ijinjenis_id);
+            $('#berkas_status').load("apps/berkas/tampilstatus.php?status="+counter.berkas_status);
 
         }
         
@@ -69,7 +70,7 @@ function getEdit(a){
 
 function getLambung(a){
     // $('#large').modal('show');
-    $.get( "apps/armada/getDetail.php?act=get&id="+a, function( data ) {
+    $.get( "apps/berkas/getDetail.php?act=get&id="+a, function( data ) {
 
         $('#detailarmada').html(data);
         $('#large').modal('show');

@@ -1,10 +1,10 @@
 
 <?php 
-if($_GET['rel'] == 1){
+//if($_GET['rel'] == 1){
 session_start();
 require_once "../../webclass.php";
 $db = new kelas();
-}
+//}
 
 echo "<option value=''>Pilih Jabatan</option>";
  foreach($db->select("m_jabatan","*","status = 1") as $val){

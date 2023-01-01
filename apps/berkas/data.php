@@ -88,7 +88,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,berkas_deskripsi,berkas_status,b.ijinjenis_name from m_berkas a join m_ijinjenis b on a.ijinjenis_id = b.ijinjenis_id JOIN (SELECT @rownum:=0) r) a";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,berkas_id,berkas_deskripsi,berkas_status,b.ijinjenis_name from m_berkas a join m_ijinjenis b on a.ijinjenis_id = b.ijinjenis_id JOIN (SELECT @rownum:=0) r) a";
 $extraWhere = "";        
 
 echo json_encode(

@@ -4,7 +4,7 @@ $('.server-side').DataTable( {
         "processing": true,
         "serverSide": true,
         //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
-        "ajax": "apps/trperijinan/data.php"
+        "ajax": "apps/trperijinan/data.php?type="+$('#typeijin').val()
     } );
 
 
@@ -13,7 +13,7 @@ $(document).ready(function(){
         preventSubmit: true,
         submitSuccess: function($form, event){     
             event.preventDefault();
-            if($('#jumisi').val()==$('#jumdata').val()){
+            //if($('#jumisi').val()==$('#jumdata').val()){
                 var data = $('#form').serializeFormJSON();        
                 $('#prosesloading').html('<img src="../assets/images/loading.gif">');
                 $.post('apps/trperijinan/proses.php?act=post',data,
@@ -21,7 +21,7 @@ $(document).ready(function(){
                         if(msg=="1"){alert("Data Tersimpan");}
                         else{alert("Gagal Tersimpan!!")}
                         //location.reload();
-                         window.location='index.php?x=trperijinan';
+                         window.location='index.php?x=trperijinan'+$('#typeijin').val();
                        // swal({
                        //       title: "Konfirmasi!",
                        //       text: msg,
@@ -30,9 +30,9 @@ $(document).ready(function(){
                        //    });
                     }
                 );          
-            } else {
-                alert("Upload Berkas Belum Lengkap");
-            }
+            //} else {
+            //    alert("Upload Berkas Belum Lengkap");
+            //}
             
       },
       submitError: function ($form, event, errors) { 
@@ -117,6 +117,27 @@ $(document).on('click','#detailrh2',function(e){
             );
 });
 
+$(document).on('click','#detailrh5',function(e){
+    e.preventDefault();
+        $("#defaultSize2").modal('show');
+        $.post('apps/trperijinan/detailrh5.php?id='+$(this).attr("data-id"),
+                function(html){
+                $("#tampilhis2").html(html);
+                }   
+            );
+});
+
+$(document).on('click','#detailrh6',function(e){
+    e.preventDefault();
+        $("#defaultSize2").modal('show');
+        $.post('apps/trperijinan/detailrh6.php?id='+$(this).attr("data-id"),
+                function(html){
+                $("#tampilhis2").html(html);
+                }   
+            );
+});
+
+
 $(document).on('click','#detailrh3',function(e){
     e.preventDefault();
         $("#defaultSize2").modal('show');
@@ -178,8 +199,21 @@ function uploadFile(urut,id) {
 
 }
 
-function tampilsyarat(id){
-    //alert(id);
+function tampilsyarat(id,type,xinput){
+    if(id > 0){
+        if(id >= 7 && id <= 8 ){
+            $('#tampilperijinan').load("apps/trperijinan/tampilperijinankal.php?id="+id+"&type="+type);
+        } else if(id == 9){
+            $('#tampilperijinan').load("apps/trperijinan/tampilperijinanimb.php?id="+id+"&type="+type);
+        } else {
+            $('#tampilperijinan').load("apps/trperijinan/tampilperijinan.php?id="+id+"&type="+type);
+        }
+
         $('#syaratupload').load("apps/trperijinan/isiupload.php?id="+id);
+    } else {
+        window.location='index.php?x='+xinput;
+    }
+    
+       
 }
 </script>
