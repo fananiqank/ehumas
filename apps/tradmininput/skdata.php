@@ -12,7 +12,7 @@ foreach($cekuplod2 as $cmm){
 <b><u>SK Data</u></b><br>
 <?php $no = 1;
     foreach ($db->select("uploaddata_sk a","a.*","a.ijin_id='$_GET[id]'") as $upd) {?>
-    <button type="button" class="accordion"><?=$no.". ".$cmm[ijin_nosk]?></button>
+    <button type="button" class="accordion"><?=$no.". SK Data -".$cmm[ijin_nosk]?></button>
     <div class="panel table-responsive" align="center">
         <embed src="data/<?=$upd[upload_name]?>" width="50%" height="300" ></embed>
     </div>

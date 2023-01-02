@@ -51,11 +51,13 @@ $db = new kelas();
     $no++; 
     $jumdata+=1;
     $jumisis+=$jumisi;
+    $jumreq+=$berkas[berkas_required];
     }
     
     ?>
         <input type="hidden" name="jumdata" id="jumdata" value="<?=$jumdata?>">
         <input type="hidden" name="jumisi" id="jumisi" value="<?=$jumisis?>">
+        <input type="hidden" name="jumreq" id="jumreq" value="<?=$jumreq?>">
         <tr>
             <td colspan="3" align="center"><a href="index.php?x=trperijinan" class="btn btn-warning ">Back</a>
                 <button type="submit" class="btn btn-info" id="tambah">Simpan</button></td>

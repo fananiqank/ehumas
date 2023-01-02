@@ -13,7 +13,7 @@ $(document).ready(function(){
         preventSubmit: true,
         submitSuccess: function($form, event){     
             event.preventDefault();
-            //if($('#jumisi').val()==$('#jumdata').val()){
+            //if($('#jumisi').val()>=$('#jumreq').val()){
                 var data = $('#form').serializeFormJSON();        
                 $('#prosesloading').html('<img src="../assets/images/loading.gif">');
                 $.post('apps/trperijinan/proses.php?act=post',data,

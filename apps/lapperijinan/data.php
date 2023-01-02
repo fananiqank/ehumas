@@ -162,7 +162,7 @@ left join (select max(skemadtl_seq) maxseqapp,ijin_id from tx_approve GROUP BY i
 on a.ijin_id=d.ijin_id JOIN (SELECT @rownum:=0) r where DATE(ijin_tglpengajuan) between '$_GET[tgl1]' and '$_GET[tgl2]' $idijinjenis $armada) a ";
 $extraWhere = "";        
 
-//echo $joinQuery;
+echo $joinQuery;
 echo json_encode(
 	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $joinQuery, $extraWhere )
 );

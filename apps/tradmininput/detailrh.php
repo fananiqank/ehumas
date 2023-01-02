@@ -3,7 +3,7 @@ session_start();
 require_once "../../webclass.php";
 $db = new kelas();
 
-foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep left join m_jabatan e on a.id_jabatan=e.id_jabatan","a.*,b.ijinjenis_name,b.skema_id,c.nama_dep,e.nama_jabatan","a.ijin_id = '$_GET[id]'") as $val2){}
+foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id left join m_dep c on a.dep_id=c.id_dep left join m_jabatan e on a.id_jabatan=e.id_jabatan","a.*,b.ijinjenis_name,b.skema_id,c.nama_dep,e.nama_jabatan","a.ijin_id = '$_GET[id]'") as $val2){}
 
 ?>
 <style>

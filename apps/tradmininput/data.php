@@ -78,7 +78,7 @@ $columns = array(
 	array('db'      => 'gabs','dt'   => 6, 'field' => 'gabs',
 		   'formatter' => function( $d, $row ) {
 		   	$exp = explode("_", $d);
-		   	if($exp[1] != ""){
+		   	if($exp[1] != '0'){
 		   		$color = "btn-success";
 		   		$name = "Finish";
 		   	} else {
@@ -86,7 +86,7 @@ $columns = array(
 		   		$name ="Check";
 		   	}
 			//return "<a href='javascript:void(0)' onclick=\"delCart('$d')\">Hapus</a>";
-			return "<a href='javascript:void(0)' class='btn ".$color." btn-sm' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">".$name."</a>";
+			return "<a href='javascript:void(0)' class='btn ".$color." btn-sm' data-id=\"$exp[0]\" data-toggle=\"modal\" id=\"detailrh\">".$name."</a>";
 					 
 			}
 		  ),
@@ -113,7 +113,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 	if($_SESSION['ID_PEG'] == 99){
-		$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,c.nama_dep,concat(ijin_id,'_',ijin_nosk) as gabs from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep JOIN (SELECT @rownum:=0) r where a.ijin_id in (select ijin_id from tx_approve where skemadtl_seq = 2 and app_status = 1 and ijin_id in (select ijin_id from tx_approve where skemadtl_seq > 2))) a";
+		$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,c.nama_dep,concat(ijin_id,'_',coalesce(ijin_nosk,0)) as gabs from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id left join m_dep c on a.dep_id=c.id_dep JOIN (SELECT @rownum:=0) r where a.ijin_id in (select ijin_id from tx_approve where skemadtl_seq = 2 and app_status = 1 and ijin_id in (select ijin_id from tx_approve where skemadtl_seq > 2))) a";
 	}
 	
 $extraWhere = "";        
