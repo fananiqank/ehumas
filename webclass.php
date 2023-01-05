@@ -27,7 +27,7 @@ class kelas extends PDO{
     public function __construct()
 	{ 
         $this->engine	= 'mysql'; 
-        $this->host	  	= '103.172.204.123'; 
+        $this->host	  	= '103.139.193.245'; 
 		//$this->host	  	= '192.168.100.99'; 
         $this->database = 'u1352283_elicense'; 
 		$this->user 	= 'dash'; 
