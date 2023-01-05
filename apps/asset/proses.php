@@ -6,12 +6,13 @@ $db=new kelas();
 $date = date("Y-m-d H:i:s");
 
 if($_GET[act]=='post'){
-	$assetsid = $db->idurut("m_assets","assets_id");
-	if($_POST[ijin_id] == ''){
+	$assetsid = $db->idurut("m_assets","asset_id");
+	if($_POST[asset_id] == ''){
+		
 		$db->query("
 		insert into m_assets (
 			asset_id,
-			asset_jenis,
+			assetjenis_id,
 			asset_no,
 			asset_name,
 			asset_lokasi,
@@ -38,7 +39,7 @@ if($_GET[act]=='post'){
 			asset_ukuran='$_POST[asset_ukuran]',
 			asset_type='$_POST[asset_type]',
 			asset_keterangan='$_POST[asset_keterangan]'
-		where assets_id = '$_POST[assets_id]'
+		where asset_id = '$_POST[asset_id]'
 		");
 	}
 	

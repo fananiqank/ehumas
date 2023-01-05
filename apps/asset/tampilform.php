@@ -42,10 +42,10 @@
     <div class="form-group row">
         <label class="col-sm-4 control-label" for="w1-username">Type</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control input-sm frhead" name="asset_type" id="asset_type" required>
+            <input type="text" class="form-control input-sm frhead" name="asset_type" id="asset_type">
         </div>
     </div>
-    
+
     <div class="form-group row">
         <label class="col-sm-4 control-label" for="w1-username">Keterangan</label>
         <div class="col-sm-8">

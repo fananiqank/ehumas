@@ -24,10 +24,10 @@ $db=new kelas();
 
 // DB table to use
 
-$table = "m_berkas";
+$table = "m_assets";
 
 // Table's primary key
-$primaryKey = 'berkas_id';
+$primaryKey = 'asset_id';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
@@ -123,7 +123,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.assetjenis_name from m_berkas a join m_assetjenis b on a.assetjenis_id = b.ijinjenis_id JOIN (SELECT @rownum:=0) r) a";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut,a.*,b.assetjenis_name from m_assets a join m_assetjenis b on a.assetjenis_id = b.assetjenis_id JOIN (SELECT @rownum:=0) r) a";
 $extraWhere = "";        
 
 echo json_encode(
