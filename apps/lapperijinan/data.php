@@ -159,10 +159,10 @@ left join m_jabatan f on a.id_jabatan=f.id_jabatan
 left join (select max(skemadtl_seq) maxseq,skema_id from m_skema_approve_dtl GROUP BY skema_id) c
 on b.skema_id=c.skema_id
 left join (select max(skemadtl_seq) maxseqapp,ijin_id from tx_approve GROUP BY ijin_id) d
-on a.ijin_id=d.ijin_id JOIN (SELECT @rownum:=0) r where DATE(ijin_tglpengajuan) between '$_GET[tgl1]' and '$_GET[tgl2]' $idijinjenis $armada) a ";
+on a.ijin_id=d.ijin_id JOIN (SELECT @rownum:=0) r where DATE(ijin_tglpengajuan) between '$_GET[tgl1]' and '$_GET[tgl2]' $idijinjenis $dept) a ";
 $extraWhere = "";        
 
-echo $joinQuery;
+//echo $joinQuery;
 echo json_encode(
 	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $joinQuery, $extraWhere )
 );
