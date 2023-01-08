@@ -113,8 +113,8 @@ if($_GET[act]=='post'){
 		'imb_name' => $_POST['imb_name'],
 		'imb_lokasi' => $_POST['imb_lokasi'],
 		'imb_type' => $_POST['imb_type'],
-		'imb_tglpekerjaan' => $_POST['imb_tglpekerjaan']
-
+		'imb_tglpekerjaan' => $_POST['imb_tglpekerjaan'],
+		'asset_id' => $_POST['asset_id']
 	 	);
 		$last9 = $db->insertID("tx_imb",$data9);
 	}

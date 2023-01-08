@@ -39,7 +39,8 @@
                         <th>No Pengajuan</th>
                         <th>No SK</th>
                         <th>Nama</th>
-                        <th>Aksi</th>
+                        <th>Dtl</th>
+                        <th>#</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -49,7 +50,8 @@
                         <th>No Pengajuan</th>
                         <th>No SK</th>
                         <th>Nama</th>
-                        <th>Aksi</th>
+                        <th>Dtl</th>
+                        <th>#</th>
                     </tr>
                 </tfoot>
             </table>

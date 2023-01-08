@@ -58,9 +58,14 @@ function getEdit(a){
             //console.log(counter.ijinjenis_id);
             // alert(counter.cust_id+"_"+counter.arm_nolambung.substring(0,3));
             $('#asset_id').val(counter.asset_id);
-            $('#asset_nm').val(counter.asset_deskripsi);
-            $('#ijin_id').load("apps/asset/tampil_jenis_ijin.php?status="+counter.ijinjenis_id);
-            $('#asset_status').load("apps/asset/tampilstatus.php?status="+counter.asset_status);
+            $('#asset_name').val(counter.asset_name);
+            $('#asset_no').val(counter.asset_no);
+            $('#asset_lokasi').val(counter.asset_lokasi);
+            $('#asset_ukuran').val(counter.asset_ukuran);
+            $('#asset_type').val(counter.asset_type);
+            $('#asset_keterangan').val(counter.asset_keterangan);
+            $('#asset_status').val(counter.asset_status);
+            $('#assetjenis_id').load("apps/asset/tampil_asset.php?status="+counter.assetjenis_id);
 
         }
         

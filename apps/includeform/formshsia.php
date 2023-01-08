@@ -2,7 +2,7 @@
 foreach($db->select("tx_sia","*,case when sia_tujuan=1 then 'Baru' else 'Perpanjangan' end as tujuan","ijin_id = '$_GET[id]'") as $sia){}
 ?>
 <div class="form-group row">
-    <label class="col-sm-2" style="font-size: 13px;"><b>Tujuan Negara Kunjungan</b></label>
+    <label class="col-sm-2" style="font-size: 13px;"><b>Tujuan</b></label>
     <div class="col-4">: 
         <?=$sia[tujuan]?>
     </div>

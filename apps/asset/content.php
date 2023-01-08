@@ -30,6 +30,7 @@
                         <th>Ukuran</th>
                         <th>Type</th>
                         <th>Ket</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -42,6 +43,7 @@
                         <th>Ukuran</th>
                         <th>Type</th>
                         <th>Ket</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                 </tfoot>
             </table>

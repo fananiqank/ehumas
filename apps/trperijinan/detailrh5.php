@@ -135,7 +135,7 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                     <?php foreach($db->select("tx_approve","*,case when app_status = 1 then 'Approved' else 'Rejected' end as statusijin","ijin_id = '$_GET[id]' and skemadtl_seq = 2") as $cekhead2){} 
                         if($cekhead2[app_id] != ''){
                             foreach($db->select("m_pegawai","nama_pegawai","id_pegawai = '$cekhead2[id_pegawai]'") as $hh){}
-                            echo "<b>".$cekhead2[statusijin]."</b> by <b>".$hh[nama_pegawai]."</b> on <b>".$cekhead2[app_createdate]."</b>";
+                            echo "<b>".$cekhead2[statusijin]."</b> by <b>".$hh[nama_pegawai]."</b> on <b>".$cekhead2[app_createdate]."</b><br>: <b>Note</b> : ".$cekhead2['app_keterangan'];
                         } else if ($cekhead[app_status] == 0) {
                             echo "-";
                         } else {
@@ -150,7 +150,7 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                     <?php foreach($db->select("tx_approve","*,case when app_status = 1 then 'Approved' else 'Rejected' end as statusijin","ijin_id = '$_GET[id]' and skemadtl_seq = 3") as $cekhead3){} 
                         if($cekhead3[app_id] != ''){
                             foreach($db->select("m_pegawai","nama_pegawai","id_pegawai = '$cekhead3[id_pegawai]'") as $hh){}
-                            echo "<b>".$cekhead3[statusijin]."</b> by <b>".$hh[nama_pegawai]."</b> on <b>".$cekhead3[app_createdate]."</b>";
+                            echo "<b>".$cekhead3[statusijin]."</b> by <b>".$hh[nama_pegawai]."</b> on <b>".$cekhead3[app_createdate]."</b><br>: <b>Note</b> : ".$cekhead3['app_keterangan'];
                         } else if ($cekhead2[app_status] == 0) {
                             echo "-";
                         } else {

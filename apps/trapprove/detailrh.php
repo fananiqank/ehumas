@@ -76,12 +76,50 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                 <div class="col-4">: 
                     <?=$val2[nama_jabatan]?>
                 </div>
-                <label class="col-sm-2" style="font-size: 13px;"><b>Alasan Kebutuhan</b></label>
+                <label class="col-sm-2" style="font-size: 13px;"><b>Keterangan</b></label>
                 <div class="col-4">: 
                     <?=$val2[ijin_keterangan]?>
                 </div>
                 
             </div>
+            <?php  
+                if($val2[ijinjenis_id] == 1 )
+                { 
+                    include "../includeform/formshvisabisnis.php";
+                } 
+                
+                if ($val2[ijinjenis_id] == 3 ){ 
+                    include "../includeform/formshvisa.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 4 ){ 
+                    include "../includeform/formshvisatka.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 5 ){ 
+                    include "../includeform/formshslo.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 6 ){ 
+                    include "../includeform/formshsio.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 10 ){ 
+                    include "../includeform/formshsia.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 11 ){ 
+                    include "../includeform/formshpendampingtka.php";
+                } 
+
+                if ($val2[ijinjenis_id] == 12 ){ 
+                    include "../includeform/formshpaspor.php";
+                } 
+
+
+
+                ?> 
+            <hr>
             <div class="form-group row">
                 <b><u>Persyaratan</u></b><br>
                 <?php $no = 1;
@@ -92,6 +130,7 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                     </div>
                 <?php $no++; } ?>
             </div>
+
 <?php if($_SESSION['ID_JAB'] == 10 || $_SESSION['ID_JAB'] == 9 ) {?>
             <div class="form-group row">
                <label class="col-sm-2" style="font-size: 13px;"><b>Approve Head</b></label>
@@ -113,7 +152,7 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                     <?php foreach($db->select("tx_approve","*,case when app_status = 1 then 'Approved' else 'Rejected' end as statusijin","ijin_id = '$_GET[id]' and skemadtl_seq = 2") as $cekhead2){} 
                         if($cekhead2[app_id] != ''){
                             foreach($db->select("m_pegawai","nama_pegawai","id_pegawai = '$cekhead2[id_pegawai]'") as $hh){}
-                            echo "<b>".$cekhead2[statusijin]."</b> by <b>".$hh[nama_pegawai]."</b> on <b>".$cekhead2[app_createdate]."</b>";
+                            echo "<b>".$cekhead2[statusijin]."</b> by <b>".$hh[nama_pegawai]."</b> on <b>".$cekhead2[app_createdate]."</b><br>: <b>Note</b> : ".$cekhead2['app_keterangan'];
                         } else if ($cekhead[app_status] == 0) {
                             echo "-";
                         } else {

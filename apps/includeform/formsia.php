@@ -1,5 +1,5 @@
 <div class="form-group row">
-    <label class="col-sm-3 control-label" for="w1-username">Tujuan Negara Kunjungan</label>
+    <label class="col-sm-3 control-label" for="w1-username">Tujuan</label>
     <div class="col-sm-9">
         <select class="select2 form-control block headmas" id="sia_tujuan" name="sia_tujuan" required>
            <option value="0">Pilih Tujuan</option>

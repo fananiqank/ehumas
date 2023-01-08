@@ -62,9 +62,10 @@ $columns = array(
 					 
 			}
 		  ),
-	array('db'      => 'ijin_kode','dt'   => 2, 'field' => 'ijin_kode',
+	array('db'      => 'ijinkode','dt'   => 2, 'field' => 'ijinkode',
 		   'formatter' => function( $d, $row ) {
-			$isijam = "<a href='apps/lapperijinan/pdfmtc.php?kode=$d' target='_blank'>$d</a>";
+		   	$expl = explode("_",$d);
+			$isijam = "<a href='./apps/trperijinan/pdfmtc.php?id=$expl[0]' target='_blank'>$expl[1]</a>";
 			return $isijam;
 					 
 			}
@@ -108,7 +109,14 @@ $columns = array(
 					 
 			}
 		  ),
-	array('db'      => 'det','dt'   => 8, 'field' => 'det',
+	array('db'      => 'ijin_keterangan','dt'   => 8, 'field' => 'ijin_keterangan',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'det','dt'   => 9, 'field' => 'det',
 		   'formatter' => function( $d, $row ) {
 			$expd = explode('_', $d);
 		   	if($expd[3] == 0){
@@ -128,12 +136,42 @@ $columns = array(
 					 
 			}
 		  ),
+	array('db'      => 'ijin_tempatterbit','dt'   => 10, 'field' => 'ijin_tempatterbit',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'ijin_tglawalterbit','dt'   => 11, 'field' => 'ijin_tglawalterbit',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'ijin_tglakhirterbit','dt'   => 12, 'field' => 'ijin_tglakhirterbit',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'ijin_dikeluarkan','dt'   => 13, 'field' => 'ijin_dikeluarkan',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'ijin_remarkadmin','dt'   => 14, 'field' => 'ijin_remarkadmin',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
 	
-	
-		  
-	
-	
-		
 );
 
 // SQL server connection information
@@ -152,7 +190,8 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (select @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,concat(a.ijin_id,'_',coalesce(c.maxseq,0),'_',coalesce(d.maxseqapp,0),'_',ijin_status) det,nama_dep,nama_jabatan,concat(ijin_nosk,'_',a.ijin_id,'_',ijin_status) tot
+$joinQuery = "FROM (select @rownum:=@rownum+1 no_urut,a.*,b.ijinjenis_name,concat(a.ijin_id,'_',coalesce(c.maxseq,0),'_',coalesce(d.maxseqapp,0),'_',ijin_status) det,nama_dep,nama_jabatan,concat(ijin_nosk,'_',a.ijin_id,'_',ijin_status) tot,
+concat(a.ijin_id,'_',ijin_kode) as ijinkode
 from tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id 
 left join m_dep e on a.dep_id=e.id_dep
 left join m_jabatan f on a.id_jabatan=f.id_jabatan
@@ -162,7 +201,7 @@ left join (select max(skemadtl_seq) maxseqapp,ijin_id from tx_approve GROUP BY i
 on a.ijin_id=d.ijin_id JOIN (SELECT @rownum:=0) r where DATE(ijin_tglpengajuan) between '$_GET[tgl1]' and '$_GET[tgl2]' $idijinjenis $armada) a ";
 $extraWhere = "";        
 
-echo $joinQuery;
+//echo $joinQuery;
 echo json_encode(
 	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $joinQuery, $extraWhere )
 );

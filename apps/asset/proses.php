@@ -44,7 +44,7 @@ if($_GET[act]=='post'){
 	}
 	
 } else if($_GET[act]=='get'){
-	$dt=$db->select("m_assets","*","assets_id='$_GET[id]'");
+	$dt=$db->select("m_assets","*","asset_id='$_GET[id]'");
 	echo json_encode($dt);
 
 }

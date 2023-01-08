@@ -90,15 +90,22 @@ $columns = array(
 		  ),
 	array('db'      => 'asset_status','dt'   => 8, 'field' => 'asset_status',
 		   'formatter' => function( $d, $row ) {
-			if($d == 1) {
-				$showstatus = "<span class='success'>Aktif</span>";
-			} else {
-				$showstatus = "<span class='danger'>Nonaktif</span>";
-			}
-			return"$showstatus";
+			
+			return"$d";
 					 
 			}
 		  ),
+	// array('db'      => 'asset_status','dt'   => 8, 'field' => 'asset_status',
+	// 	   'formatter' => function( $d, $row ) {
+	// 		if($d == 1) {
+	// 			$showstatus = "<span class='success'>Aktif</span>";
+	// 		} else {
+	// 			$showstatus = "<span class='danger'>Nonaktif</span>";
+	// 		}
+	// 		return"$showstatus";
+					 
+	// 		}
+	// 	  ),
 	array('db'      => 'asset_id','dt'   => 9, 'field' => 'asset_id',
 		   'formatter' => function( $d, $row ) {	
 			return "<a href='javascript:void(0)' onclick=\"getEdit('$d')\">Edit</a>";

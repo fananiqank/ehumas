@@ -2,7 +2,11 @@
 <div class="form-group row form-inline">
     <label class="col-sm-3 control-label" for="w1-username">Nama Bangunan</label>
     <div class="col-sm-9">
-        <input type="text" class="form-control input-sm headmas" name="imb_name" id="imb_name" style="min-width: 100%;" required>
+        <select class="select2 form-control block headmas" id="asset_id2" name="asset_id2" onchange="inasset(this.value)" required>
+            <?php include "tampilasset.php"; ?>
+        </select>
+        <input type="hidden" class="form-control input-sm headmas" name="asset_id" id="asset_id" style="min-width: 100%;" required>
+        <input type="hidden" class="form-control input-sm headmas" name="imb_name" id="imb_name" style="min-width: 100%;" required>
     </div>
 </div>
 <div class="form-group row form-inline">
@@ -46,6 +50,16 @@
 <script src="app-assets/js/scripts/forms/select/form-select2.js"></script>
 <script type="text/javascript">
     $( document ).ready(function() {
-    $('#tampilforminc').load("apps/forminclude.php?id="+<?php echo $_GET[id];?>); 
-});
+        $('#tampilforminc').load("apps/forminclude.php?id="+<?php echo $_GET[id];?>); 
+    });
+    function inasset(val){
+        expval = val.split('_');
+        id = expval[0];
+        nama = expval[1]+' - '+expval[3];;
+        lokasi = expval[2];
+
+        $('#asset_id').val(id);
+        $('#imb_name').val(nama);
+        $('#imb_lokasi').val(lokasi);
+    }
 </script>
