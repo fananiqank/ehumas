@@ -50,7 +50,7 @@
             <table class="table table-striped table-bordered" id="tableperijinan">
                 <thead>
                     <tr>
-                        <th colspan="9">Periode : <?=$_GET['tgl1']." - ".$_GET['tgl2']?></th>
+                        <th colspan="15">Periode : <?=$_GET['tgl1']." - ".$_GET['tgl2']?></th>
                     </tr>
                     <tr>
                         <th style="text-align: center;">ID</th>
