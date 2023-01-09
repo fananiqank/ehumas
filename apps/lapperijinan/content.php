@@ -50,18 +50,24 @@
             <table class="table table-striped table-bordered" id="tableperijinan">
                 <thead>
                     <tr>
-                        <th colspan="9">Periode : <?=$_GET['tgl1']." - ".$_GET['tgl2']?></th>
+                        <th colspan="15">Periode : <?=$_GET['tgl1']." - ".$_GET['tgl2']?></th>
                     </tr>
                     <tr>
                         <th style="text-align: center;">ID</th>
-                        <th>Jenis</th>
+                        <th>Jenis Ijin</th>
                         <th>No. Aju</th>
                         <th>No SK</th>
-                        <th>Nama</th>
+                        <th>Nama Pengajuan</th>
                         <th>Dept</th>
                         <th>Jabatan</th>
                         <th>Tgl Aju</th>
+                        <th>Keterangan</th>
                         <th>Status</th>
+                        <th>tempat terbit</th>
+                        <th>Tgl terbit</th>
+                        <th>Tgl akhir</th>
+                        <th>Dikeluarkan oleh</th>
+                        <th>Keterangan Admin</th>
                     </tr>
                 </thead>
                 

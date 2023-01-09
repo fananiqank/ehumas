@@ -3,7 +3,7 @@ session_start();
 require_once "../../webclass.php";
 $db = new kelas();
 
-foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id join m_dep c on a.dep_id=c.id_dep left join m_jabatan e on a.id_jabatan=e.id_jabatan","a.*,b.ijinjenis_name,b.skema_id,c.nama_dep,DATEDIFF(a.ijin_tglakhirterbit,a.ijin_tglawalterbit) as masaberlaku,e.nama_jabatan","a.ijin_id = '$_GET[id]'") as $val2){}
+foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinjenis_id left join m_dep c on a.dep_id=c.id_dep left join m_jabatan e on a.id_jabatan=e.id_jabatan","a.*,b.ijinjenis_name,b.skema_id,c.nama_dep,DATEDIFF(a.ijin_tglakhirterbit,a.ijin_tglawalterbit) as masaberlaku,e.nama_jabatan,b.ijinjenis_type","a.ijin_id = '$_GET[id]'") as $val2){}
 
 ?>
 <style>
@@ -62,6 +62,7 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                 
                 
             </div>
+        <?php if($val2[ijinjenis_type] == 1){ ?>
             <div class="form-group row">
                  <label class="col-sm-2" style="font-size: 13px;"><b>Dept</b></label>
                 <div class="col-4">: 
@@ -78,18 +79,19 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                 <div class="col-4">: 
                     <?=$val2[nama_jabatan]?>
                 </div>
-                <label class="col-sm-2" style="font-size: 13px;"><b>Alasan Kebutuhan</b></label>
-                <div class="col-4">: 
-                    <?=$val2[ijin_keterangan]?>
-                </div>
+                
                 
             </div>
+        <?php } ?>
             <div class="form-group row">
                 <label class="col-sm-2" style="font-size: 13px;"><b>Cost Center</b></label>
                 <div class="col-4">: 
                     <?=$val2[ijin_costcenter]?>
                 </div>
-                
+                <label class="col-sm-2" style="font-size: 13px;"><b>Keterangan</b></label>
+                <div class="col-4">: 
+                    <?=$val2[ijin_keterangan]?>
+                </div>
             </div>
                 <?php  
                 if($val2[ijinjenis_id] == 1 )
@@ -151,6 +153,13 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                 </div>    
                 
             </div>
+            <div class="form-group row">
+                <label class="col-sm-2" style="font-size: 13px;"><b>Remark Admin</b></label>
+                <div class="col-4">: 
+                    <?=$val2[ijin_remarkadmin]?>
+                </div>
+                
+            </div>
            
             <div class="form-group row">
                 <b><u>Persyaratan</u></b><br>
@@ -181,7 +190,7 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                     <?php foreach($db->select("tx_approve","*,case when app_status = 1 then 'Approved' else 'Rejected' end as statusijin","ijin_id = '$_GET[id]' and skemadtl_seq = 2") as $cekhead2){} 
                         if($cekhead2[app_id] != ''){
                             foreach($db->select("m_pegawai","nama_pegawai","id_pegawai = '$cekhead2[id_pegawai]'") as $hh){}
-                            echo "<b>".$cekhead2[statusijin]."</b> by <b>".$hh[nama_pegawai]."</b> on <b>".$cekhead2[app_createdate]."</b>";
+                            echo "<b>".$cekhead2[statusijin]."</b> by <b>".$hh[nama_pegawai]."</b> on <b>".$cekhead2[app_createdate]."</b><br>: <b>Note</b> : ".$cekhead2['app_keterangan'];
                         } else if ($cekhead[app_status] == 0) {
                             echo "-";
                         } else {
@@ -196,7 +205,7 @@ foreach($db->select("tx_perijinan a join m_ijinjenis b on a.ijinjenis_id=b.ijinj
                     <?php foreach($db->select("tx_approve","*,case when app_status = 1 then 'Approved' else 'Rejected' end as statusijin","ijin_id = '$_GET[id]' and skemadtl_seq = 3") as $cekhead3){} 
                         if($cekhead3[app_id] != ''){
                             foreach($db->select("m_pegawai","nama_pegawai","id_pegawai = '$cekhead3[id_pegawai]'") as $hh){}
-                            echo "<b>".$cekhead3[statusijin]."</b> by <b>".$hh[nama_pegawai]."</b> on <b>".$cekhead3[app_createdate]."</b>";
+                            echo "<b>".$cekhead3[statusijin]."</b> by <b>".$hh[nama_pegawai]."</b> on <b>".$cekhead3[app_createdate]."</b><br>: <b>Note</b> : ".$cekhead3['app_keterangan'];
                         } else if ($cekhead2[app_status] == 0) {
                             echo "-";
                         } else {

@@ -86,14 +86,32 @@ $columns = array(
 		   	}
 			//return "<a href='javascript:void(0)' onclick=\"delCart('$d')\">Hapus</a>";
 			if($expd[4] == 7 || $expd[4] == 8){
-				$rets = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh5\" class='btn ".$btncol." btn-sm'>Detail</a>".$ddet;
+				$rets = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh5\" class='btn ".$btncol." btn-sm'>Detail</a>";
 			} else if ($expd[4] == 9){
-				$rets = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh6\" class='btn ".$btncol." btn-sm'>Detail</a>".$ddet;
+				$rets = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh6\" class='btn ".$btncol." btn-sm'>Detail</a>";
 			} else {
-				$rets = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh2\" class='btn ".$btncol." btn-sm'>Detail</a>".$ddet;
+				$rets = "<a href='javascript:void(0)' data-id=\"$expd[0]\" data-toggle=\"modal\" id=\"detailrh2\" class='btn ".$btncol." btn-sm'>Detail</a>";
 			}
 			
 			return $rets;
+					 
+			}
+		  ),
+	array('db'      => 'det','dt'   => 6, 'field' => 'det',
+		   'formatter' => function( $d, $row ) {
+		   	$expd = explode('_', $d);
+		   	if($expd[3] == 0){
+		   		$ddet = "";
+		   	} else {
+		   		if($expd[1]==$expd[2]){
+			   		 $ddet = "<a href='./apps/trperijinan/pdfmtc.php?id=$expd[0]' class='label label-primary' style='cursor:pointer;float:right' title='Cetak' target='_blank'><i class='ft-printer' aria-hidden='true' style='font-size:16px;'></i></a>";
+			   		
+		   		} else {
+		   			$ddet = "";
+		   		} 		   		
+		   	}
+			
+			return $ddet;
 					 
 			}
 		  ),
