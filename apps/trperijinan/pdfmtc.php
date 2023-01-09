@@ -65,8 +65,8 @@ $pdf = new PDF("P","mm","A4");
 $pdf->AliasNbPages();
 $pdf->AddPage();
 
-$pdf->SetFont('Arial','',10);
-$pdf->Cell(190,3,"ijinjenisID : ".$jenisIjin,0,1,'R'); // cek ijin jenis 
+// $pdf->SetFont('Arial','',10);
+// $pdf->Cell(190,3,"ijinjenisID : ".$jenisIjin,0,1,'R'); // cek ijin jenis 
 
 if($val2[ijinjenis_id] == 1){ // VISA BISNIS
 $pdf->Image('../../assets/image/LOGO_WILMAR.png',10,1,190); 
